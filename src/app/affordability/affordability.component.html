@@ -1,61 +1,58 @@
-<div  style="background: #B7D44C;height:90vh; padding:10px;">
-<form class="form-horizontal">
-<fieldset>
+<div class="container-fluid tree-background">
+    <div class="row full-screen-row">
+        <form class="form-horizontal">
+        <fieldset>
 
-<!-- Form Name -->
-<legend style="text-align: center;">Can I Afford It?</legend>
+        <!-- Form Name -->
+        <legend style="text-align: center;">Can I Afford It?</legend>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="incomeInput">Monthly Income</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="incomeInput" name="incomeInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="incomeInput">Monthly Income</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="incomeInput" name="incomeInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="inputSavings">Savings</label>  
-  <div class="col-md-4">
-      <input (keyup)="onKey($event)" id="inputSavings" name="inputSavings" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="inputSavings">Savings</label>  
+          <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="inputSavings" name="inputSavings" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="expenseInput">Monthly Expenses</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="expenseInput" name="expenseInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="expenseInput">Monthly Expenses</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="expenseInput" name="expenseInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="affordInput">Purchase Amount</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="affordInput" name="affordInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="affordInput">Purchase Amount</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="affordInput" name="affordInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Button (Double) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="btnSubmit"></label>
-  <div class="col-md-8">
-    <button (click)="canAfford($event)" id="btnSubmit" name="btnSubmit" class="btn btn-success">Submit</button>
-    <button id="btnReset" name="btnReset" class="btn btn-danger">Reset</button>
-  </div>
-</div>
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="btnSubmit"></label>
+          <div class="col-md-8">
+            <button (click)="canAfford($event)" id="btnSubmit" name="btnSubmit" class="btn btn-success">Submit</button>
+            <button id="btnReset" name="btnReset" class="btn btn-danger">Reset</button>
+          </div>
+        </div>
 
-</fieldset>
-</form>
-</div>
-<div class="row" style="text-align:center;background:black;  overflow:hidden;">
-        <p style="color:white;">
-        Can I Afford It?<br>
-        2017
-        </p>
+        </fieldset>
+        </form>
     </div>
+</div>
+<footer></footer>
