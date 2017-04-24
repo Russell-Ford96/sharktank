@@ -7,11 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var home_component_1 = require("./home.component");
-var affordability_component_1 = require("./affordability.component");
-var interest_component_1 = require("./interest.component");
-var invest101_component_1 = require("./invest101.component");
-var resources_component_1 = require("./resources.component");
+var home_component_1 = require("./home/home.component");
+var affordability_component_1 = require("./affordability/affordability.component");
+var interest_component_1 = require("./interest/interest.component");
+var invest101_component_1 = require("./invest101/invest101.component");
+var resources_component_1 = require("./resources/resources.component");
 var routes = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'affordability', component: affordability_component_1.AffordabilityComponent },

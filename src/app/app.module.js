@@ -10,12 +10,12 @@ var platform_browser_1 = require("@angular/platform-browser");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
-var navbar_component_1 = require("./navbar.component");
-var home_component_1 = require("./home.component");
-var affordability_component_1 = require("./affordability.component");
-var interest_component_1 = require("./interest.component");
-var invest101_component_1 = require("./invest101.component");
-var resources_component_1 = require("./resources.component");
+var navbar_component_1 = require("./navbar/navbar.component");
+var home_component_1 = require("./home/home.component");
+var affordability_component_1 = require("./affordability/affordability.component");
+var interest_component_1 = require("./interest/interest.component");
+var invest101_component_1 = require("./invest101/invest101.component");
+var resources_component_1 = require("./resources/resources.component");
 var AppModule = (function () {
     function AppModule() {
     }

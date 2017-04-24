@@ -6,16 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
+var Invest101Component = (function () {
+    function Invest101Component() {
     }
-    return AppComponent;
+    return Invest101Component;
 }());
-AppComponent = __decorate([
+Invest101Component = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        templateUrl: './navbar/navbar.component.html',
+        selector: 'invest-101',
+        templateUrl: './invest101.component.html',
     })
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], Invest101Component);
+exports.Invest101Component = Invest101Component;
+//# sourceMappingURL=invest101.component.js.map
