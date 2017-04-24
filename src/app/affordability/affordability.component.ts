@@ -25,11 +25,11 @@ export class AffordabilityComponent  {
         event.preventDefault();
         var netIncome = this.monthlyIncome - this.monthlyExpenses;
         if((netIncome - this.itemCost) > 0) {
-            alert("yes");
+            alert("Yes, you can afford it based on your current income");
         } else if ((netIncome - this.itemCost + this.savings) > 0) {
-            alert("yes but consider waiting");
+            alert("Yes, but at the cost of your savings. Consider waiting.");
         } else {
-            alert("no, consider waiting");
+            alert("No, we strongly advise waiting");
         }
     }
     printValues(): void {
