@@ -1,52 +1,49 @@
-<div  style="background: #B7D44C;height:90vh; padding:10px;">
-<form class="form-horizontal">
-<fieldset>
+<div class="container-fluid tree-background">
+    <div class="row full-screen-row">
+        <form class="form-horizontal">
+        <fieldset>
 
-<!-- Form Name -->
-<legend style="text-align: center;">Annual Compound Interest Calculator</legend>
+        <!-- Form Name -->
+        <legend style="text-align: center;">Annual Compound Interest Calculator</legend>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="principalInput">Principal $</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="principalInput" name="principalInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="principalInput">Principal $</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="principalInput" name="principalInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="rateInput">Rate %</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="rateInput" name="rateInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="rateInput">Rate %</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="rateInput" name="rateInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="yearsInput">Time (years)</label>  
-  <div class="col-md-4">
-  <input (keyup)="onKey($event)" id="yearsInput" name="yearsInput" type="text" placeholder="0" class="form-control input-md" required="">
-    
-  </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="yearsInput">Time (years)</label>  
+          <div class="col-md-4">
+          <input (keyup)="onKey($event)" id="yearsInput" name="yearsInput" type="text" placeholder="0" class="form-control input-md" required="">
+            
+          </div>
+        </div>
 
-<!-- Button (Double) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="btnSubmitInterest"></label>
-  <div class="col-md-8">
-    <button (click)="calculateInterest()" type="button" id="btnSubmitInterest" name="btnSubmitInterest" class="btn btn-success">Submit</button>
-    <button id="btnCancelInterest" name="btnCancelInterest" class="btn btn-danger">Reset</button>
-  </div>
-</div>
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="btnSubmitInterest"></label>
+          <div class="col-md-8">
+            <button (click)="calculateInterest()" type="button" id="btnSubmitInterest" name="btnSubmitInterest" class="btn btn-success">Submit</button>
+            <button id="btnCancelInterest" name="btnCancelInterest" class="btn btn-danger">Reset</button>
+          </div>
+        </div>
 
-</fieldset>
-</form>
+        </fieldset>
+        </form>
+    </div>
 </div>
-<div class="row" style="text-align:center;background:black;  overflow:hidden;">
-    <p style="color:white;">
-    Can I Afford It?<br>
-    2017
-    </p>
-</div>
+<footer></footer>

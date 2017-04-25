@@ -16,3 +16,16 @@ a.navbar-brand{
 html{
     min-height:100%;
 }
+.tree-background {
+    background: url("/cir_animacion_1.jpg");
+    background-position: 60% 50%;
+}
+.header {
+    color: orangered;
+    font-size: 80px;
+    text-align: center;
+}
+.full-screen-row {
+    height: 90vh;
+    padding: 10px;
+}

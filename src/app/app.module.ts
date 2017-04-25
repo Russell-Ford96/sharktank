@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }  from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AffordabilityComponent } from './affordability/affordability.component';
 import { InterestComponent } from './interest/interest.component';
@@ -22,6 +23,7 @@ import { ResourcesComponent } from './resources/resources.component';
     declarations: [ 
         AppComponent, 
         NavbarComponent,
+        FooterComponent,
         HomeComponent,
         AffordabilityComponent,
         InterestComponent,
