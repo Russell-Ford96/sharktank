@@ -1,7 +1,14 @@
 <div class="container-fluid tree-background">
+<<<<<<< HEAD
+    <div class="row full-screen-row">
+        <div class="col-md-6 col-md-offset-3 backgrounded">
+            <form class="form-horizontal">
+            <fieldset>
+=======
     <div class="row full-screen-row overlay">
         <form class="form-horizontal">
         <fieldset>
+>>>>>>> fa51a0828a3f429971392bd33b804524e43eced6
 
             <!-- Form Name -->
             <legend style="text-align: center;">Can I Afford It?</legend>
@@ -53,6 +60,7 @@
 
             </fieldset>
             </form>
+        </div>
     </div>
 </div>
 <footer></footer>

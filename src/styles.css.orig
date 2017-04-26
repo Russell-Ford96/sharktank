@@ -19,7 +19,6 @@ html{
 .tree-background {
     background: url("/cir_animacion_1.jpg");
     background-position: 60% 50%;
-    background-repeat: no-repeat;
 }
 .header {
     color: orangered;
@@ -30,6 +29,14 @@ html{
     height: 90vh;
     padding: 10px;
 }
-.overlay{
-    background-color: rgba(0,0,0,0.6)
+<<<<<<< HEAD
+.backgrounded {
+    background-color: white;
 }
+=======
+
+.overlay{
+    background-color: rgba(255,255,255,0.6)
+    
+}
+>>>>>>> fa51a0828a3f429971392bd33b804524e43eced6

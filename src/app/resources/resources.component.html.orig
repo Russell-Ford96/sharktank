@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+              <div style="display: block">
+                <canvas baseChart
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [legend]="barChartLegend"
+                        [chartType]="barChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+              </div>
+              <button (click)="randomize()">Update</button>
+            </div>
+        </div>
+=======
+<div class="container-fluid tree-background">
+    <div class="row overlay" style="height: 90vh">
+    <h1 style="margin-top:0;">Resources</h1>
+>>>>>>> fa51a0828a3f429971392bd33b804524e43eced6
+    </div>
+</div>
+
+<footer></footer>
