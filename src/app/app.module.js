@@ -9,6 +9,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var app_routing_module_1 = require("./app-routing.module");
+var ng2_charts_1 = require("ng2-charts");
 var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
 var footer_component_1 = require("./footer/footer.component");
@@ -27,7 +28,8 @@ AppModule = __decorate([
         imports: [
             platform_browser_1.BrowserModule,
             ng_bootstrap_1.NgbModule.forRoot(),
-            app_routing_module_1.AppRoutingModule
+            app_routing_module_1.AppRoutingModule,
+            ng2_charts_1.ChartsModule
         ],
         declarations: [
             app_component_1.AppComponent,

@@ -4,6 +4,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ChartsModule } from 'ng2-charts';
+
 
 import { AppComponent }  from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -18,7 +20,8 @@ import { ResourcesComponent } from './resources/resources.component';
     imports: [ 
         BrowserModule,
         NgbModule.forRoot(),
-        AppRoutingModule
+        AppRoutingModule,
+        ChartsModule
     ],
     declarations: [ 
         AppComponent, 
