@@ -12,6 +12,7 @@ export class InterestComponent {
     private rate = 0;
     private time = 0;
     private annualContribution = 0;
+    private displayChart = null;
 
     onKey(event: any) { // without type info
         if(event.target.id == "principalInput")
@@ -41,6 +42,7 @@ export class InterestComponent {
         }
         this.datasets[0]['data'] = data;
         this.labels = labels;
+        this.displayChart=true;
         setTimeout(() => {
             (<any>this.chart).refresh();
         }, 10);

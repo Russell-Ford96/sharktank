@@ -16,6 +16,7 @@ var InterestComponent = (function () {
         this.rate = 0;
         this.time = 0;
         this.annualContribution = 0;
+        this.displayChart = null;
         this.barChartLegend = true;
         this.barChartType = 'bar';
         this.datasets = [
@@ -64,6 +65,7 @@ var InterestComponent = (function () {
         }
         this.datasets[0]['data'] = data;
         this.labels = labels;
+        this.displayChart = true;
         setTimeout(function () {
             _this.chart.refresh();
         }, 10);
