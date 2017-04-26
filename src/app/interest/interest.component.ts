@@ -38,7 +38,7 @@ export class InterestComponent {
             console.log("Compounded interest: " + compoundedInterest);
             console.log("series: " + series);
             labels.push(String(i));
-            data.push(compoundedInterest);
+            data.push(compoundedInterest.toFixed(2));
         }
         this.datasets[0]['data'] = data;
         this.labels = labels;
@@ -57,21 +57,47 @@ export class InterestComponent {
     public barChartType:string = 'bar';
     private datasets = [
         {
-          label: "Compounded Interest",
-          data: [0]
+            label: "Compounded Interest",
+            data: [0]
         }
       ];
+  private chartColors: Array<any> = [
+    { // first color
+      backgroundColor: 'rgba(66,134,244,1)',
+      borderColor: 'rgba(66,134,244,1)',
+      pointBackgroundColor: 'rgba(66,134,244,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(66,134,244,1)',
+    }];
 
     private labels = ['2017'];
 
     private options = {
         responsive: true,
         scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
+            xAxes: [{ 
+                gridLines: {
+                    display: false,
+                },
+                ticks: {
+                  fontColor: "#ffffff", // this here
+                },
+            }],
+            yAxes: [{
+                gridLines: {
+                    color: 'rgba(255,255,255,.3)'
+                },
+                ticks: {
+                    beginAtZero: true,
+                    fontColor: '#ffffff'
+                }
+            }]
+        },
+        legend: {
+            labels: {
+                fontColor: '#ffffff'
             }
-          }]
         }
       };
 }

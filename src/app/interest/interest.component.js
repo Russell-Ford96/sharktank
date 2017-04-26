@@ -25,15 +25,42 @@ var InterestComponent = (function () {
                 data: [0]
             }
         ];
+        this.chartColors = [
+            {
+                backgroundColor: 'rgba(66,134,244,1)',
+                borderColor: 'rgba(66,134,244,1)',
+                pointBackgroundColor: 'rgba(66,134,244,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(66,134,244,1)',
+            }
+        ];
         this.labels = ['2017'];
         this.options = {
             responsive: true,
             scales: {
-                yAxes: [{
+                xAxes: [{
+                        gridLines: {
+                            display: false,
+                        },
                         ticks: {
-                            beginAtZero: true
+                            fontColor: "#ffffff",
+                        },
+                    }],
+                yAxes: [{
+                        gridLines: {
+                            color: 'rgba(255,255,255,.3)'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#ffffff'
                         }
                     }]
+            },
+            legend: {
+                labels: {
+                    fontColor: '#ffffff'
+                }
             }
         };
     }
@@ -61,7 +88,7 @@ var InterestComponent = (function () {
             console.log("Compounded interest: " + compoundedInterest);
             console.log("series: " + series);
             labels.push(String(i));
-            data.push(compoundedInterest);
+            data.push(compoundedInterest.toFixed(2));
         }
         this.datasets[0]['data'] = data;
         this.labels = labels;
