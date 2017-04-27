@@ -12,7 +12,7 @@ export class InterestComponent {
     private rate = 0;
     private time = 0;
     private annualContribution = 0;
-    private displayChart = null;
+    private displayChart:boolean = null;
 
     onKey(event: any) { // without type info
         if(event.target.id == "principalInput")
@@ -38,7 +38,7 @@ export class InterestComponent {
             console.log("Compounded interest: " + compoundedInterest);
             console.log("series: " + series);
             labels.push(String(i));
-            data.push(compoundedInterest.toFixed(2));
+            data.push(Number(compoundedInterest.toFixed(2)));
         }
         this.datasets[0]['data'] = data;
         this.labels = labels;
