@@ -4,7 +4,7 @@ h1 {
   font-size: 250%;
 }
 body{
-    height:100vh;
+    
     background-color: #B7D44C;
 }
 .logo{
@@ -27,7 +27,7 @@ html{
     text-align: center;
 }
 .full-screen-row {
-    height: 90vh;
+    min-height: 80vh;
     padding: 10px;
 }
 .overlay{
@@ -37,4 +37,26 @@ html{
 .centerWhite{
     text-align: center;
     color:white;
+}
+.footer-div{
+        text-align:center;
+        background:black;  
+        overflow:hidden;
+        padding-top:10px;
+}
+/*  ----------- */
+@media only screen and (max-device-width : 768px) {
+    .header{
+        font-size:38px;
+    }
+    .centerWhite{
+        margin-bottom: 0;
+    }
+    div.form-group{
+        margin-bottom:0;
+    }
+    .footer-div{
+        
+        
+    }
 }

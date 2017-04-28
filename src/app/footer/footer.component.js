@@ -14,7 +14,7 @@ var FooterComponent = (function () {
 FooterComponent = __decorate([
     core_1.Component({
         selector: 'footer',
-        template: "<div class=\"row\" style=\"text-align:center;background:black;  overflow:hidden;\">\n        <p style=\"color:white;\">\n        Can I Afford It?<br>\n        2017\n        </p>\n    </div>",
+        template: "<div class=\"row\" class=\"footer-div\">\n        <p style=\"color:white;\">\n        Can I Afford It?<br>\n        2017\n        </p>\n    </div>",
     })
 ], FooterComponent);
 exports.FooterComponent = FooterComponent;
