@@ -12,12 +12,16 @@ var affordability_component_1 = require("./affordability/affordability.component
 var interest_component_1 = require("./interest/interest.component");
 var invest101_component_1 = require("./invest101/invest101.component");
 var resources_component_1 = require("./resources/resources.component");
+var login_component_1 = require("./login/login.component");
+var register_component_1 = require("./register/register.component");
 var routes = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'affordability', component: affordability_component_1.AffordabilityComponent },
     { path: 'interest', component: interest_component_1.InterestComponent },
     { path: 'investment-101', component: invest101_component_1.Invest101Component },
-    { path: 'resources', component: resources_component_1.ResourcesComponent }
+    { path: 'resources', component: resources_component_1.ResourcesComponent },
+    { path: 'login', component: login_component_1.LoginFormComponent },
+    { path: 'register', component: register_component_1.RegisterFormComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

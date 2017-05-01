@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,13 +16,17 @@ import { AffordabilityComponent } from './affordability/affordability.component'
 import { InterestComponent } from './interest/interest.component';
 import { Invest101Component } from './invest101/invest101.component';
 import { ResourcesComponent } from './resources/resources.component';
+import { LoginFormComponent } from './login/login.component';
+import { RegisterFormComponent } from './register/register.component';
 
 @NgModule({
     imports: [ 
         BrowserModule,
         NgbModule.forRoot(),
         AppRoutingModule,
-        ChartsModule
+        ChartsModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [ 
         AppComponent, 
@@ -31,7 +36,9 @@ import { ResourcesComponent } from './resources/resources.component';
         AffordabilityComponent,
         InterestComponent,
         Invest101Component,
-        ResourcesComponent
+        ResourcesComponent,
+        LoginFormComponent,
+        RegisterFormComponent
     ],
     bootstrap: [ 
         AppComponent
