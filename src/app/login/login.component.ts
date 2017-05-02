@@ -1,24 +1,48 @@
 import { Component, OnInit }                    from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
+import { Router }                               from '@angular/router';
+
+import { AuthService }                          from './auth.service';
 
 @Component({
     selector: 'login',
     templateUrl: './login.component.html'
 })
 export class LoginFormComponent implements OnInit {
-    
     submitted = false;
+    loginForm: FormGroup;
+    loginCredentials: any;
+
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService,
+        private router: Router
+    ) { }
+
+    ngOnInit(): void {
+        this.buildForm();
+    }
+
     onSubmit() {
         this.submitted = true;
         this.loginCredentials = this.loginForm.value;
         this.save();
     }
-    loginForm: FormGroup;
-    constructor(
-        private fb: FormBuilder
-    ) { }
-    ngOnInit(): void {
-        this.buildForm();
+    save(): void {
+        var token = this.authService.login(this.loginCredentials)
+                        .then(token => this.storeToken(token));
+    }
+    storeToken(token: string): void {
+        if(token == '') {
+            alert("Invalid login!");
+        } else {
+            localStorage.setItem("token", token);
+            this.router.navigate(['/profile']);
+            this.authService.hasToken = true;
+        }
+    }
+    cancel(): void {
+        console.log("hit cancel");
     }
     buildForm(): void {
         this.loginForm = this.fb.group({
@@ -27,7 +51,7 @@ export class LoginFormComponent implements OnInit {
                 ]
             ],
             'password': ['', [
-                Validators.required
+                Validators.required,
                 Validators.minLength(8)
                 ]
             ]
@@ -51,30 +75,16 @@ export class LoginFormComponent implements OnInit {
             }
         }
     }
-    save(): void {
-      
-    }
-    goBack(): void {
-        
-    }
     formErrors = {
-        'firstName': '',
-        'lastName': '',
         'email': '',
         'password': ''
     };
     validationMessages = {
-        'firstName': {
-            'required':      'First name is required.'
-        },
-        'lastName': {
-            'required': 'Last name is required.'
-        },
         'email': {
             'required': 'Email is required.'
         },
         'password': {
-            'required': 'Password is required.'
+            'required': 'Password is required.',
             'minlength': 'Minimum characters is 7.'
         }
     };

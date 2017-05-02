@@ -1,7 +1,9 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -18,6 +20,11 @@ import { Invest101Component } from './invest101/invest101.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LogoutComponent } from './profile/logout.component';
+import { AuthGuard } from './auth.guard';
+
+import { AuthService } from './login/auth.service';
 
 @NgModule({
     imports: [ 
@@ -26,7 +33,9 @@ import { RegisterFormComponent } from './register/register.component';
         AppRoutingModule,
         ChartsModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CommonModule,
+        HttpModule
     ],
     declarations: [ 
         AppComponent, 
@@ -38,7 +47,13 @@ import { RegisterFormComponent } from './register/register.component';
         Invest101Component,
         ResourcesComponent,
         LoginFormComponent,
-        RegisterFormComponent
+        RegisterFormComponent,
+        ProfileComponent,
+        LogoutComponent
+    ],
+    providers: [
+        AuthService,
+        AuthGuard
     ],
     bootstrap: [ 
         AppComponent

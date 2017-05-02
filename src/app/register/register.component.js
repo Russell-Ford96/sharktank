@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var auth_service_1 = require("../login/auth.service");
 var RegisterFormComponent = (function () {
-    function RegisterFormComponent(fb) {
+    function RegisterFormComponent(fb, authService) {
         this.fb = fb;
+        this.authService = authService;
         this.submitted = false;
         this.formErrors = {
             'firstName': '',
@@ -43,6 +45,7 @@ var RegisterFormComponent = (function () {
     }
     RegisterFormComponent.prototype.onSubmit = function () {
         this.submitted = true;
+        this.credentials = this.registerForm.value;
         this.save();
     };
     RegisterFormComponent.prototype.ngOnInit = function () {
@@ -96,8 +99,10 @@ var RegisterFormComponent = (function () {
         }
     };
     RegisterFormComponent.prototype.save = function () {
+        this.authService.register(this.credentials);
     };
-    RegisterFormComponent.prototype.goBack = function () {
+    RegisterFormComponent.prototype.cancel = function () {
+        alert("implement a cancel button you lazy...");
     };
     return RegisterFormComponent;
 }());
@@ -106,7 +111,8 @@ RegisterFormComponent = __decorate([
         selector: 'register',
         templateUrl: './register.component.html'
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder,
+        auth_service_1.AuthService])
 ], RegisterFormComponent);
 exports.RegisterFormComponent = RegisterFormComponent;
 //# sourceMappingURL=register.component.js.map

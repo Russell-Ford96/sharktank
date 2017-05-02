@@ -9,6 +9,8 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
+var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 var ng2_charts_1 = require("ng2-charts");
 var app_component_1 = require("./app.component");
@@ -21,6 +23,10 @@ var invest101_component_1 = require("./invest101/invest101.component");
 var resources_component_1 = require("./resources/resources.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
+var profile_component_1 = require("./profile/profile.component");
+var logout_component_1 = require("./profile/logout.component");
+var auth_guard_1 = require("./auth.guard");
+var auth_service_1 = require("./login/auth.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -34,7 +40,9 @@ AppModule = __decorate([
             app_routing_module_1.AppRoutingModule,
             ng2_charts_1.ChartsModule,
             forms_1.FormsModule,
-            forms_1.ReactiveFormsModule
+            forms_1.ReactiveFormsModule,
+            common_1.CommonModule,
+            http_1.HttpModule
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -46,7 +54,13 @@ AppModule = __decorate([
             invest101_component_1.Invest101Component,
             resources_component_1.ResourcesComponent,
             login_component_1.LoginFormComponent,
-            register_component_1.RegisterFormComponent
+            register_component_1.RegisterFormComponent,
+            profile_component_1.ProfileComponent,
+            logout_component_1.LogoutComponent
+        ],
+        providers: [
+            auth_service_1.AuthService,
+            auth_guard_1.AuthGuard
         ],
         bootstrap: [
             app_component_1.AppComponent

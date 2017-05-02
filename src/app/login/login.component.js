@@ -10,23 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var auth_service_1 = require("./auth.service");
 var LoginFormComponent = (function () {
-    function LoginFormComponent(fb) {
+    function LoginFormComponent(fb, authService, router) {
         this.fb = fb;
+        this.authService = authService;
+        this.router = router;
         this.submitted = false;
         this.formErrors = {
-            'firstName': '',
-            'lastName': '',
             'email': '',
             'password': ''
         };
         this.validationMessages = {
-            'firstName': {
-                'required': 'First name is required.'
-            },
-            'lastName': {
-                'required': 'Last name is required.'
-            },
             'email': {
                 'required': 'Email is required.'
             },
@@ -36,13 +32,31 @@ var LoginFormComponent = (function () {
             }
         };
     }
+    LoginFormComponent.prototype.ngOnInit = function () {
+        this.buildForm();
+    };
     LoginFormComponent.prototype.onSubmit = function () {
         this.submitted = true;
         this.loginCredentials = this.loginForm.value;
         this.save();
     };
-    LoginFormComponent.prototype.ngOnInit = function () {
-        this.buildForm();
+    LoginFormComponent.prototype.save = function () {
+        var _this = this;
+        var token = this.authService.login(this.loginCredentials)
+            .then(function (token) { return _this.storeToken(token); });
+    };
+    LoginFormComponent.prototype.storeToken = function (token) {
+        if (token == '') {
+            alert("Invalid login!");
+        }
+        else {
+            localStorage.setItem("token", token);
+            this.router.navigate(['/profile']);
+            this.authService.hasToken = true;
+        }
+    };
+    LoginFormComponent.prototype.cancel = function () {
+        console.log("hit cancel");
     };
     LoginFormComponent.prototype.buildForm = function () {
         var _this = this;
@@ -78,10 +92,6 @@ var LoginFormComponent = (function () {
             }
         }
     };
-    LoginFormComponent.prototype.save = function () {
-    };
-    LoginFormComponent.prototype.goBack = function () {
-    };
     return LoginFormComponent;
 }());
 LoginFormComponent = __decorate([
@@ -89,7 +99,9 @@ LoginFormComponent = __decorate([
         selector: 'login',
         templateUrl: './login.component.html'
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder,
+        auth_service_1.AuthService,
+        router_1.Router])
 ], LoginFormComponent);
 exports.LoginFormComponent = LoginFormComponent;
 //# sourceMappingURL=login.component.js.map

@@ -1,26 +1,28 @@
 import { Component, OnInit }                    from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
 
+import { AuthService } from '../login/auth.service';
+
 
 @Component({
     selector: 'register',
     templateUrl: './register.component.html'
 })
 export class RegisterFormComponent implements OnInit {
-    
     submitted = false;
+    credentials: any;
+    registerForm: FormGroup;
+
     onSubmit() {
         this.submitted = true;
-        
+        this.credentials = this.registerForm.value;
         this.save();
     }
-    registerForm: FormGroup;
     constructor(
         private fb: FormBuilder,
-        
+        private authService: AuthService
     ) { }
     ngOnInit(): void {
-        
         this.buildForm();
     }
     buildForm(): void {
@@ -38,12 +40,12 @@ export class RegisterFormComponent implements OnInit {
                 ]
             ],
             'password': ['', [
-                Validators.required
+                Validators.required,
                 Validators.minLength(8)
                 ]
             ],
             'confirmPassword': ['', [
-                Validators.required
+                Validators.required,
                 Validators.minLength(8)
                 ]
             ]
@@ -68,10 +70,10 @@ export class RegisterFormComponent implements OnInit {
         }
     }
     save(): void {
-      
+        this.authService.register(this.credentials);
     }
-    goBack(): void {
-        
+    cancel(): void {
+        alert("implement a cancel button you lazy...");
     }
     formErrors = {
         'firstName': '',
@@ -91,11 +93,11 @@ export class RegisterFormComponent implements OnInit {
             'required': 'Email is required.'
         },
         'password': {
-            'required': 'Password is required.'
+            'required': 'Password is required.',
             'minlength': 'Minimum characters is 7.'
         },
         'confirmPassword': {
-            'required': 'Password is required.'
+            'required': 'Password is required.',
             'minlength': 'Minimum characters is 7.'
         }
     };

@@ -14,7 +14,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        templateUrl: './navbar/navbar.component.html',
+        template: "<navbar></navbar>"
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

@@ -20,7 +20,9 @@
         <li><a routerLink="resources" routerLinkActive="active">Investment Reading</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="login" routerLinkActive="active">Login</a></li>
+        <li *ngIf="!authService.hasToken"><a routerLink="login" routerLinkActive="active">Login</a></li>
+        <li *ngIf="authService.hasToken"><a routerLink="profile" routerLinkActive="active">Profile</a></li>
+        <li *ngIf="authService.hasToken"><a routerLink="logout" routerLinkActive="active">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

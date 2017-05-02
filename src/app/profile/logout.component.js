@@ -10,30 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../login/auth.service");
-var NavbarComponent = (function () {
-    function NavbarComponent(authService) {
+var LogoutComponent = (function () {
+    function LogoutComponent(authService) {
         this.authService = authService;
-        this.token = this.authService.hasToken;
+        this.logout();
     }
-    NavbarComponent.prototype.logout = function () {
+    LogoutComponent.prototype.logout = function () {
         this.authService.logout();
     };
-    NavbarComponent.prototype.hasToken = function () {
-        if (localStorage.getItem('token') != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    return NavbarComponent;
+    return LogoutComponent;
 }());
-NavbarComponent = __decorate([
+LogoutComponent = __decorate([
     core_1.Component({
-        selector: 'navbar',
-        templateUrl: './navbar.component.html',
+        selector: 'logout',
+        template: '<h1>You have been successfully logged out!</h1>'
     }),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
-], NavbarComponent);
-exports.NavbarComponent = NavbarComponent;
-//# sourceMappingURL=navbar.component.js.map
+], LogoutComponent);
+exports.LogoutComponent = LogoutComponent;
+//# sourceMappingURL=logout.component.js.map

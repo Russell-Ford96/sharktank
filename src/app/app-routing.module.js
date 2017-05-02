@@ -14,14 +14,19 @@ var invest101_component_1 = require("./invest101/invest101.component");
 var resources_component_1 = require("./resources/resources.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
+var profile_component_1 = require("./profile/profile.component");
+var logout_component_1 = require("./profile/logout.component");
+var auth_guard_1 = require("./auth.guard");
 var routes = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'affordability', component: affordability_component_1.AffordabilityComponent },
     { path: 'interest', component: interest_component_1.InterestComponent },
     { path: 'investment-101', component: invest101_component_1.Invest101Component },
     { path: 'resources', component: resources_component_1.ResourcesComponent },
-    { path: 'login', component: login_component_1.LoginFormComponent },
-    { path: 'register', component: register_component_1.RegisterFormComponent }
+    { path: 'login', component: login_component_1.LoginFormComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'register', component: register_component_1.RegisterFormComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'profile', component: profile_component_1.ProfileComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'logout', component: logout_component_1.LogoutComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
