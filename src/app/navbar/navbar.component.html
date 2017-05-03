@@ -21,6 +21,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="!authService.hasToken"><a routerLink="login" routerLinkActive="active">Login</a></li>
+        <li *ngIf="!authService.hasToken"><a routerLink="register" routerLinkActive="active">Register</a></li>
         <li *ngIf="authService.hasToken"><a routerLink="profile" routerLinkActive="active">Profile</a></li>
         <li *ngIf="authService.hasToken"><a routerLink="logout" routerLinkActive="active">Logout</a></li>
       </ul>

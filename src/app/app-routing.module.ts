@@ -9,6 +9,7 @@ import { Invest101Component } from './invest101/invest101.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
+import { SuccessComponent } from './register/success.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './profile/logout.component';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'success', component: SuccessComponent },
     { path: 'logout', component: LogoutComponent }
 ];
 

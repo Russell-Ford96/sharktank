@@ -17,17 +17,15 @@ var AuthService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     AuthService.prototype.login = function (credentials) {
-        console.log(credentials);
         return this.http.post('api/login', JSON.stringify(credentials), { headers: this.headers })
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     AuthService.prototype.register = function (credentials) {
-        console.log(credentials);
         return this.http.post('api/register', JSON.stringify(credentials), { headers: this.headers })
             .toPromise()
-            .then(function (response) { return console.log(response); })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     AuthService.prototype.logout = function () {

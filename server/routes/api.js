@@ -22,28 +22,29 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 router.post('/register', (req, res) => {
-    console.log("register route fired");
     //sanitize input
     var email = pool.escape(req.body.email);
     var password = pool.escape(req.body.password);
     var confirmPass = pool.escape(req.body.confirmPassword);
     var fname = pool.escape(req.body.firstName);
     var lname = pool.escape(req.body.lastName);
-    console.log("escaped values: ", email, password, confirmPass, fname, lname);
     //check if passwords are the same
+    //TODO
     //query the database for existing user
-    //create user if not exists
-    pool.query('SELECT * FROM Users WHERE email=' + email, function (error, results, fields) {
+    pool.query('SELECT * FROM Users WHERE email=?', [email], function (error, results, fields) {
         if (error) throw error;
+        //create user if not exists
         if(results == '') {
             bcrypt.genSalt(saltRounds, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
                     pool.query('INSERT INTO Users VALUES(null,?,?,?,?,null,null)', [email, hash, fname, lname], function (error, results, fields) {
-                        console.log(results, fields);
+                        res.send(JSON.stringify("success"));
                         if (error) throw error;
                     });
                 });
             });
+        } else {
+            res.send(JSON.stringify("User already exists"));
         }
     });
 });

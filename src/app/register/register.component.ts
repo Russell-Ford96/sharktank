@@ -1,5 +1,6 @@
 import { Component, OnInit }                    from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
+import { Router }                               from '@angular/router';
 
 import { AuthService } from '../login/auth.service';
 
@@ -20,7 +21,8 @@ export class RegisterFormComponent implements OnInit {
     }
     constructor(
         private fb: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
     ngOnInit(): void {
         this.buildForm();
@@ -70,10 +72,17 @@ export class RegisterFormComponent implements OnInit {
         }
     }
     save(): void {
-        this.authService.register(this.credentials);
+        this.authService.register(this.credentials).then(res => this.displayServerMessage(res));
     }
     cancel(): void {
         alert("implement a cancel button you lazy...");
+    }
+    displayServerMessage(response: string): void {
+        if(response == "success") {
+            this.router.navigate(['/success']);
+        } else {
+            this.formErrors['email'] += response + ' ';
+        }
     }
     formErrors = {
         'firstName': '',

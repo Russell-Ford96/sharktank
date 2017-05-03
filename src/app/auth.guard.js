@@ -15,8 +15,6 @@ var AuthGuard = (function () {
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        console.log(route.url[0].path);
-        console.log(localStorage.getItem('token'));
         if (localStorage.getItem('token') != null) {
             if ((route.url[0].path == 'login') || (route.url[0].path == 'register')) {
                 //logged in so redirect to profile

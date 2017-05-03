@@ -11,17 +11,15 @@ export class AuthService {
     constructor(private http: Http) { }
 
     login(credentials: any): Promise<any> {
-        console.log(credentials);
         return this.http.post('api/login', JSON.stringify(credentials), {headers: this.headers})
                     .toPromise()
                     .then(response => response.json())
                     .catch(this.handleError);
     }
     register(credentials: any): Promise<any> {
-        console.log(credentials);
         return this.http.post('api/register', JSON.stringify(credentials), {headers: this.headers})
                     .toPromise()
-                    .then(response => console.log(response))
+                    .then(response => response.json())
                     .catch(this.handleError);
     }
     logout() {
