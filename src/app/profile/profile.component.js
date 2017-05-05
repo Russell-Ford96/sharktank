@@ -8,7 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var ProfileComponent = (function () {
     function ProfileComponent() {
+        this.showAddForm = false;
+        this.showIncomeForm = false;
     }
+    ProfileComponent.prototype.displayForm = function () {
+        this.showAddForm = true;
+    };
+    ProfileComponent.prototype.displayIncomeForm = function () {
+        this.showIncomeForm = true;
+    };
+    ProfileComponent.prototype.hideForm = function () {
+        this.showAddForm = false;
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([

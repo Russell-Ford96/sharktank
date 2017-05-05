@@ -1,1 +1,70 @@
-<h1>If you're seeing this you should be logged in</h1>
+<div class="container-fluid tree-background">
+    <div class="row full-screen-row overlay">
+        <h1>Profile</h1>
+        <div class="col-md-12">
+            <h2>Personal Information</h2>
+            <strong>Name: first_name last_name</strong><br>
+            Edit 
+            
+            <form>
+                
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="cold-md-6">
+                <h2>Income</h2>
+
+            </div>
+
+            <div class="col-md-6">
+                <h2>Income</h2>
+                <span id="addExpense" (click)="displayIncomeForm()">
+                    +Add Income
+                </span>
+                <form [formGroup]="incomeForm" *ngIf="showIncomeForm" (ngSubmit)="onSubmit()"> 
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="category" formControlName="category" required>
+                        <div *ngIf="formErrors.category" class="alert alert-danger">
+                            {{ formErrors.category }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseAmount">Amount</label>
+                        <input type="text" class="form-control" id="expenseAmount" formControlName="expenseAmount" required>
+                        <div *ngIf="formErrors.expenseAmount" class="alert alert-danger">
+                            {{ formErrors.expenseAmount }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Add</button>
+                    <button type="button" (click)="hideForm()" class="btn btn-danger">Cancel</button>
+                </form>
+                <h2>Expenses</h2>
+                <span id="addExpense" (click)="displayForm()">
+                    +Add Expense
+                </span>
+                <form [formGroup]="expenseForm" *ngIf="showAddForm" (ngSubmit)="onSubmit()"> 
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="category" formControlName="category" required>
+                        <div *ngIf="formErrors.category" class="alert alert-danger">
+                            {{ formErrors.category }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseAmount">Amount</label>
+                        <input type="text" class="form-control" id="expenseAmount" formControlName="expenseAmount" required>
+                        <div *ngIf="formErrors.expenseAmount" class="alert alert-danger">
+                            {{ formErrors.expenseAmount }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Add</button>
+                    <button type="button" (click)="hideForm()" class="btn btn-danger">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer></footer>
