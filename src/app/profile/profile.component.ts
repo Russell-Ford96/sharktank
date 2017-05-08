@@ -13,8 +13,10 @@ export class ProfileComponent {
     profile: Profile;
     showExpenseForm = false;
     showIncomeForm = false;
+    showEditProfileForm;
     expenseForm: FormGroup;
     incomeForm: FormGroup;
+    editProfileForm: FormGroup;
     expenseData: any;
     incomeData: any;
     
@@ -32,6 +34,10 @@ export class ProfileComponent {
         console.log(this.profile);
     }
 
+    
+    displayEditProfileForm() {
+        this.showEditProfileForm = true;
+    }
     displayIncomeForm() {
         this.showIncomeForm = true;
     }
@@ -44,6 +50,9 @@ export class ProfileComponent {
     cancelExpense(): void {
         this.showExpenseForm = false;
     }
+    cancelEditProfile(): void{
+        this.showEditProfileForm = false;
+    }   
     onExpenseSubmit() {
         this.expenseData = this.expenseForm.value;
         this.expenseData.token = localStorage.getItem('token');
@@ -143,7 +152,10 @@ export class ProfileComponent {
         'incomeCategory': '',
         'incomeAmount': '',
         'expenseCategory': '',
-        'expenseAmount': ''
+        'expenseAmount': '',
+        'firstName': '',
+        'lastName': '',
+        'savings': ''
     };
     validationMessages = {
         'incomeCategory': {
@@ -157,6 +169,15 @@ export class ProfileComponent {
         },
         'expenseAmount': {
             'required': 'Expense amount is required.'
+        },
+        'firstName': {
+            'required': 'Name cannot be blank.'
+        },
+        'lastName': {
+            'required': 'Name cannot be blank.'
+        },
+        'savings': {
+            'required': 'Savings field cannot be empty.'
         }
     };
 }

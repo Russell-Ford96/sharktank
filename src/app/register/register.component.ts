@@ -112,11 +112,11 @@ export class RegisterFormComponent implements OnInit {
         },
         'password': {
             'required': 'Password is required.',
-            'minlength': 'Minimum characters is 7.'
+            'minlength': 'Minimum characters is 8.'
         },
         'confirmPassword': {
             'required': 'Password is required.',
-            'minlength': 'Minimum characters is 7.'
+            'minlength': 'Minimum characters is 8.'
         }
     };
 }

@@ -3,12 +3,42 @@
         <h1>Profile</h1>
         <div class="col-md-12">
             <h2>Personal Information</h2>
-            <strong>Name: {{ profile.firstName }} {{ profile.lastName }}</strong><br>
-            Edit 
-            
-            <form>
-                
+            <span *ngIf="!showEditProfileForm">
+            <strong>Name:</strong> {{ profile.firstName }} {{ profile.lastName }}<br>
+            <strong>Email:</strong> {{ profile.email }}<br>
+            <strong>Savings:</strong> {{profile.saving}}<br>
+            </span>
+
+            <form [formGroup]="editProfileForm" *ngIf="showEditProfileForm" class="col-md-4">
+
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+                    <div *ngIf="formErrors.firstName" class="alert alert-danger">
+                        {{ formErrors.incomeCategory }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+                    <div *ngIf="formErrors.lastName" class="alert alert-danger">
+                        {{ formErrors.lastName }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="savings">Savings</label>
+                    <input type="text" class="form-control" id="savings" formControlName="savings" required>
+                    <div *ngIf="formErrors.savings" class="alert alert-danger">
+                        {{ formErrors.savings }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" [disabled]="!editProfileForm.valid">Save</button>
+                <button type="button" (click)="cancelEditProfile()" class="btn btn-warning">Cancel</button>
             </form>
+            <span id="addExpense" (click)="displayEditProfileForm()" *ngIf="!showEditProfileForm">    
+                Edit Profile
+            </span>
         </div>
         <div class="col-md-6">
 
@@ -19,16 +49,18 @@
                         <tr>
                             <th>Category</th>
                             <th>Amount</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let incomeRow of profile.income">
                             <td>{{ incomeRow.income_name }}</td>
                             <td>{{ incomeRow.income_amount }}</td>
+                            <td> <button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">X</button></td>
                         </tr>
                     </tbody>
                 </table>
-                <span id="addExpense" (click)="displayIncomeForm()">
+                <span id="addExpense" (click)="displayIncomeForm()" *ngIf="!showIncomeForm">
                     +Add Income
                 </span>
                 <form [formGroup]="incomeForm" *ngIf="showIncomeForm" (ngSubmit)="onIncomeSubmit()"> 
@@ -56,16 +88,18 @@
                         <tr>
                             <th>Category</th>
                             <th>Amount</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let expenseRow of profile.expenses">
                             <td>{{ expenseRow.expense_name }}</td>
                             <td>{{ expenseRow.expense_amount }}</td>
+                            <td> <button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">X</button></td>
                         </tr>
                     </tbody>
                 </table>
-                <span id="addExpense" (click)="displayExpenseForm()">
+                <span id="addExpense" (click)="displayExpenseForm()" *ngIf="!showExpenseForm">
                     +Add Expense
                 </span>
                 <form [formGroup]="expenseForm" *ngIf="showExpenseForm" (ngSubmit)="onExpenseSubmit()"> 
@@ -88,6 +122,9 @@
                     <button type="button" (click)="cancelExpense()" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
+        </div>
+        <div class="col-md-6" id="pieChart">
+
         </div>
     </div>
 </div>

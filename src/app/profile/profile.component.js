@@ -37,6 +37,15 @@ var ProfileComponent = (function () {
             },
             'expenseAmount': {
                 'required': 'Expense amount is required.'
+            },
+            'firstName': {
+                'required': 'Name cannot be blank.'
+            },
+            'lastName': {
+                'required': 'Name cannot be blank.'
+            },
+            'savings': {
+                'required': 'Savings field cannot be empty.'
             }
         };
     }
@@ -49,6 +58,9 @@ var ProfileComponent = (function () {
         });
         console.log(this.profile);
     };
+    ProfileComponent.prototype.displayEditProfileForm = function () {
+        this.showEditProfileForm = true;
+    };
     ProfileComponent.prototype.displayIncomeForm = function () {
         this.showIncomeForm = true;
     };
@@ -60,6 +72,9 @@ var ProfileComponent = (function () {
     };
     ProfileComponent.prototype.cancelExpense = function () {
         this.showExpenseForm = false;
+    };
+    ProfileComponent.prototype.cancelEditProfile = function () {
+        this.showEditProfileForm = false;
     };
     ProfileComponent.prototype.onExpenseSubmit = function () {
         this.expenseData = this.expenseForm.value;

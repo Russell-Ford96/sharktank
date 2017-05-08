@@ -20,6 +20,7 @@ html{
     background: url("/cir_animacion_1.jpg");
     background-position: 60% 50%;
     background-repeat: no-repeat;
+    
 }
 .header {
     color: orangered;
@@ -27,7 +28,7 @@ html{
     text-align: center;
 }
 .full-screen-row {
-    min-height: 80vh;
+    min-height: 86.5vh;
     padding: 10px;
 }
 .overlay{
@@ -43,6 +44,14 @@ html{
         background:black;  
         overflow:hidden;
         padding-top:10px;
+        
+}
+.content{
+    min-height:calc(100vh);
+}
+#pieChart{
+    background-color:black; 
+    height:400px;
 }
 /*  ----------- */
 @media only screen and (max-device-width : 768px) {

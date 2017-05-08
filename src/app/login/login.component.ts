@@ -85,7 +85,7 @@ export class LoginFormComponent implements OnInit {
         },
         'password': {
             'required': 'Password is required.',
-            'minlength': 'Minimum characters is 7.'
+            'minlength': 'Minimum characters is 8.'
         }
     };
 }
