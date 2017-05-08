@@ -3,7 +3,7 @@
         <h1>Profile</h1>
         <div class="col-md-12">
             <h2>Personal Information</h2>
-            <strong>Name: first_name last_name</strong><br>
+            <strong>Name: {{ profile.firstName }} {{ profile.lastName }}</strong><br>
             Edit 
             
             <form>
@@ -11,45 +11,69 @@
             </form>
         </div>
         <div class="col-md-6">
-            <div class="cold-md-6">
-                <h2>Income</h2>
-
-            </div>
 
             <div class="col-md-6">
                 <h2>Income</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let incomeRow of profile.income">
+                            <td>{{ incomeRow.income_name }}</td>
+                            <td>{{ incomeRow.income_amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <span id="addExpense" (click)="displayIncomeForm()">
                     +Add Income
                 </span>
-                <form [formGroup]="incomeForm" *ngIf="showIncomeForm" (ngSubmit)="onSubmit()"> 
+                <form [formGroup]="incomeForm" *ngIf="showIncomeForm" (ngSubmit)="onIncomeSubmit()"> 
                     <div class="form-group">
-                        <label for="category">Category</label>
-                        <input type="text" class="form-control" id="category" formControlName="category" required>
-                        <div *ngIf="formErrors.category" class="alert alert-danger">
-                            {{ formErrors.category }}
+                        <label for="incomeCategory">Category</label>
+                        <input type="text" class="form-control" id="incomeCategory" formControlName="incomeCategory" required>
+                        <div *ngIf="formErrors.incomeCategory" class="alert alert-danger">
+                            {{ formErrors.incomeCategory }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="expenseAmount">Amount</label>
-                        <input type="text" class="form-control" id="expenseAmount" formControlName="expenseAmount" required>
-                        <div *ngIf="formErrors.expenseAmount" class="alert alert-danger">
-                            {{ formErrors.expenseAmount }}
+                        <label for="incomeAmount">Amount</label>
+                        <input type="text" class="form-control" id="incomeAmount" formControlName="incomeAmount" required>
+                        <div *ngIf="formErrors.incomeAmount" class="alert alert-danger">
+                            {{ formErrors.incomeAmount }}
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Add</button>
-                    <button type="button" (click)="hideForm()" class="btn btn-danger">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!incomeForm.valid">Add</button>
+                    <button type="button" (click)="cancelIncome()" class="btn btn-danger">Cancel</button>
                 </form>
                 <h2>Expenses</h2>
-                <span id="addExpense" (click)="displayForm()">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expenseRow of profile.expenses">
+                            <td>{{ expenseRow.expense_name }}</td>
+                            <td>{{ expenseRow.expense_amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span id="addExpense" (click)="displayExpenseForm()">
                     +Add Expense
                 </span>
-                <form [formGroup]="expenseForm" *ngIf="showAddForm" (ngSubmit)="onSubmit()"> 
+                <form [formGroup]="expenseForm" *ngIf="showExpenseForm" (ngSubmit)="onExpenseSubmit()"> 
                     <div class="form-group">
-                        <label for="category">Category</label>
-                        <input type="text" class="form-control" id="category" formControlName="category" required>
-                        <div *ngIf="formErrors.category" class="alert alert-danger">
-                            {{ formErrors.category }}
+                        <label for="expenseCategory">Category</label>
+                        <input type="text" class="form-control" id="expenseCategory" formControlName="expenseCategory" required>
+                        <div *ngIf="formErrors.expenseCategory" class="alert alert-danger">
+                            {{ formErrors.expenseCategory }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -61,7 +85,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Add</button>
-                    <button type="button" (click)="hideForm()" class="btn btn-danger">Cancel</button>
+                    <button type="button" (click)="cancelExpense()" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
         </div>

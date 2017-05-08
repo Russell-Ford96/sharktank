@@ -74,8 +74,17 @@ export class RegisterFormComponent implements OnInit {
     save(): void {
         this.authService.register(this.credentials).then(res => this.displayServerMessage(res));
     }
-    cancel(): void {
-        alert("implement a cancel button you lazy...");
+    reset(): void {
+        this.registerForm.setValue({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        });
+        for(var error in this.formErrors) {
+            this.formErrors[error] = '';
+        }
     }
     displayServerMessage(response: string): void {
         if(response == "success") {

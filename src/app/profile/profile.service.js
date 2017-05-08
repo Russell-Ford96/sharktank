@@ -11,46 +11,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
-var AuthService = (function () {
-    function AuthService(http) {
+var ProfileService = (function () {
+    function ProfileService(http) {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.hasToken = this.checkForToken();
     }
-    AuthService.prototype.checkForToken = function () {
-        var token = localStorage.getItem('token');
-        if (token == '' || token == null) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    };
-    AuthService.prototype.login = function (credentials) {
-        return this.http.post('api/login', JSON.stringify(credentials), { headers: this.headers })
+    ProfileService.prototype.getProfileData = function (token) {
+        return this.http.post('api/profile', JSON.stringify({ 'token': token }), { headers: this.headers })
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    AuthService.prototype.register = function (credentials) {
-        return this.http.post('api/register', JSON.stringify(credentials), { headers: this.headers })
+    ProfileService.prototype.getExpenses = function () {
+        return;
+    };
+    ProfileService.prototype.getIncome = function () {
+        return;
+    };
+    ProfileService.prototype.saveIncome = function (data) {
+        return this.http.post('api/income', JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    AuthService.prototype.logout = function () {
-        localStorage.removeItem('token');
-        this.hasToken = false;
+    ProfileService.prototype.saveExpense = function (data) {
+        return this.http.post('api/expense', JSON.stringify(data), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
-    AuthService.prototype.handleError = function (error) {
+    ProfileService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     };
-    return AuthService;
+    return ProfileService;
 }());
-AuthService = __decorate([
+ProfileService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], AuthService);
-exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map
+], ProfileService);
+exports.ProfileService = ProfileService;
+//# sourceMappingURL=profile.service.js.map

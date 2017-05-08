@@ -36,12 +36,6 @@ var AffordabilityComponent = (function () {
             alert("No, we strongly advise waiting");
         }
     };
-    AffordabilityComponent.prototype.printValues = function () {
-        console.log("Savings: " + this.savings);
-        console.log("monthlyIncome: " + this.monthlyIncome);
-        console.log("monthlyExpenses: " + this.monthlyExpenses);
-        console.log("itemCost: " + this.itemCost);
-    };
     return AffordabilityComponent;
 }());
 AffordabilityComponent = __decorate([

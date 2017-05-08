@@ -16,16 +16,19 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AffordabilityComponent } from './affordability/affordability.component';
 import { InterestComponent } from './interest/interest.component';
-import { Invest101Component } from './invest101/invest101.component';
-import { ResourcesComponent } from './resources/resources.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
 import { SuccessComponent } from './register/success.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './profile/logout.component';
 import { AuthGuard } from './auth.guard';
+import { AddIncomeComponent } from './profile/add-income.component';
+import { ProfileDetailResolve } from './profile/profile.resolve';
+import { InvestingComponent } from './investing/investing.component'
+import { FinanceComponent } from './finance/finance.component';
 
 import { AuthService } from './login/auth.service';
+import { ProfileService } from './profile/profile.service';
 
 @NgModule({
     imports: [ 
@@ -45,17 +48,20 @@ import { AuthService } from './login/auth.service';
         HomeComponent,
         AffordabilityComponent,
         InterestComponent,
-        Invest101Component,
-        ResourcesComponent,
         LoginFormComponent,
         RegisterFormComponent,
         ProfileComponent,
         LogoutComponent,
-        SuccessComponent
+        SuccessComponent,
+        AddIncomeComponent,
+        InvestingComponent,
+        FinanceComponent
     ],
     providers: [
         AuthService,
-        AuthGuard
+        AuthGuard,
+        ProfileService,
+        ProfileDetailResolve
     ],
     bootstrap: [ 
         AppComponent

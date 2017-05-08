@@ -32,10 +32,4 @@ export class AffordabilityComponent  {
             alert("No, we strongly advise waiting");
         }
     }
-    printValues(): void {
-        console.log("Savings: " + this.savings);
-        console.log("monthlyIncome: " + this.monthlyIncome);
-        console.log("monthlyExpenses: " + this.monthlyExpenses);
-        console.log("itemCost: " + this.itemCost);
-    }
 }

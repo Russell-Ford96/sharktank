@@ -23,9 +23,12 @@ router.get('/', (req, res) => {
 });
 router.post('/register', (req, res) => {
     //sanitize input
-    var email = pool.escape(req.body.email);
+    var email = req.body.email.toLowerCase();
+    email = pool.escape(email);
     var password = pool.escape(req.body.password);
     var confirmPass = pool.escape(req.body.confirmPassword);
+    if(password != confirmPass)
+        res.send(JSON.stringify("Passwords do not match"), 400);
     var fname = pool.escape(req.body.firstName);
     var lname = pool.escape(req.body.lastName);
     //check if passwords are the same
@@ -37,7 +40,7 @@ router.post('/register', (req, res) => {
         if(results == '') {
             bcrypt.genSalt(saltRounds, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
-                    pool.query('INSERT INTO Users VALUES(null,?,?,?,?,null,null)', [email, hash, fname, lname], function (error, results, fields) {
+                    pool.query('INSERT INTO Users VALUES(null,?,?,?,?,null)', [email, hash, fname, lname], function (error, results, fields) {
                         res.send(JSON.stringify("success"));
                         if (error) throw error;
                     });
@@ -50,12 +53,16 @@ router.post('/register', (req, res) => {
 });
 router.post('/login', (req, res) => {
     pool.getConnection(function(err, connection) {
-        var email = pool.escape(req.body.email);
+        var email = req.body.email.toLowerCase();
+        email = pool.escape(email);
         var password = pool.escape(req.body.password);
         connection.query("SELECT * FROM Users WHERE email=?", [email], function (error, results, fields) {
             bcrypt.compare(password, results[0].password, function(err, result) {
                 if(result) {
                     var token = jwt.sign(results[0], 'secret');
+                    jwt.verify(token, 'secret', function(err, decoded) {
+                        console.log(decoded.email);
+                    });
                     res.setHeader('Content-Type', 'application/json');
                     res.send(JSON.stringify(token));
                 } else {
@@ -69,9 +76,88 @@ router.post('/login', (req, res) => {
         });
     });
 });
-router.get('/budget', (req, res) => {
-    //receives user_id
-    //SELECT * FROM User_Expenses WHERE user_id=user_id JOIN Expenses ON User_Expenses.expense_id=Expenses.expense_id
+router.post('/income', (req, res) => {
+    const queryString = "INSERT INTO User_Income VALUES(?,?,?)";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        var income_name = pool.escape(req.body.incomeCategory);
+        var income_amount = pool.escape(req.body.incomeAmount);
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        //select users stored incomes from db
+        connection.query(queryString, [decoded.user_id, income_name, income_amount], function(error, results, fields) {
+            if(error) throw error;
+            res.send(JSON.stringify('success'));
+
+        });
+        connection.release();
+    });
+});
+router.post('/expense', (req, res) => {
+    const queryString = "INSERT INTO User_Expenses VALUES(?,?,?)";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        var expense_name = pool.escape(req.body.expenseCategory);
+        var expense_amount = pool.escape(req.body.expenseAmount);
+        connection.query(queryString, [decoded.user_id, expense_name, expense_amount], function (error, results, fields) {
+            if (error) throw error;
+            res.send(JSON.stringify('success'));
+
+            connection.release();
+
+        });
+    });
+});
+router.post('/profile', (req, res) => {
+    const queryIncome = "SELECT * FROM User_Income WHERE user_id=?";
+    const queryExpense = "SELECT * FROM User_Expenses WHERE user_id=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+            //select income and expenses (there's probably a more efficient way to do this with one query)
+            connection.query(queryIncome, [decoded.user_id, decoded.user_id], function(error, resIncome, fields) {
+
+                if(error) throw error;
+
+                connection.query(queryExpense, [decoded.user_id, decoded.user_id], function(error2, resExpenses, fields2) {
+                    var income = [];
+                    var expenses = [];
+                    for(row in resIncome) {
+                        income.push(resIncome[row]);
+                    }
+                    for(row in resExpenses) {
+                        expenses.push(resExpenses[row]);
+                    }
+                    res.send(JSON.stringify({
+                        'firstName': results[0].first_name,
+                        'lastName': results[0].last_name,
+                        'income': income,
+                        'expenses': expenses
+                    }));
+
+                    if(error) throw error;
+                });
+            });
+
+            if(error) throw error;
+        });
+        connection.release();
+    });
 });
 
 module.exports = router;

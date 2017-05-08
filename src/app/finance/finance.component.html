@@ -1,0 +1,106 @@
+<div class="container-fluid tree-background">
+    <div class="row full-screen-row overlay">
+        <form class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend class="centerWhite">Finance</legend>
+            <div class="row" *ngIf="displayChart">
+                <div class="col-md-8 col-md-offset-2 overlay">
+                    <div>
+                        <div style="display: block">
+                            <canvas baseChart
+                                    [datasets]="datasets"
+                                    [labels]="labels"
+                                    [options]="options"
+                                    [legend]="barChartLegend"
+                                    [colors]="chartColors"
+                                    [chartType]="barChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="displayAffordability" style="text-align: center">
+                <h2 id="canAfford">{{ canAfford }}</h2>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="purchaseAmount">Purchase Amount</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="purchaseAmount" name="purchaseAmount" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="downPayment">Down Payment</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="downPayment" name="downPayment" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="incomeInput">Monthly Income</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="incomeInput" name="incomeInput" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="expensesInput">Monthly Expenses</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="expensesInput" name="expensesInput" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="apr">APR</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="apr" name="apr" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="termMonths">Payment term in months</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="termMonths" name="termMonths" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 16px">or</div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="termYears">Payment term in years</label>  
+              <div class="col-md-4">
+              <input (keyup)="onKey($event)" id="termYears" name="termYears" type="text" placeholder="0" class="form-control input-md" required="">
+                
+              </div>
+            </div>
+
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="btnSubmit"></label>
+              <div class="col-md-8">
+                <button (click)="calculateCosts($event)" id="btnSubmit" name="btnSubmit" class="btn btn-success">Submit</button>
+                <button id="btnReset" name="btnReset" class="btn btn-danger">Reset</button>
+              </div>
+            </div>
+
+            </fieldset>
+            </form>
+    </div>
+</div>
+<footer></footer>

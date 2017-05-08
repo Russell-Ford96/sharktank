@@ -104,8 +104,17 @@ var RegisterFormComponent = (function () {
         var _this = this;
         this.authService.register(this.credentials).then(function (res) { return _this.displayServerMessage(res); });
     };
-    RegisterFormComponent.prototype.cancel = function () {
-        alert("implement a cancel button you lazy...");
+    RegisterFormComponent.prototype.reset = function () {
+        this.registerForm.setValue({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        });
+        for (var error in this.formErrors) {
+            this.formErrors[error] = '';
+        }
     };
     RegisterFormComponent.prototype.displayServerMessage = function (response) {
         if (response == "success") {

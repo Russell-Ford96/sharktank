@@ -1,7 +1,7 @@
+
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
 import { ProfileService } from './profile.service'
-import { ActivatedRoute, Params } from '@angular/router';
 
 import { Profile } from './profile';
 
@@ -15,21 +15,18 @@ export class ProfileComponent {
     showIncomeForm = false;
     expenseForm: FormGroup;
     incomeForm: FormGroup;
-    expenseData: any;
-    incomeData: any;
     
     constructor(
         private fb: FormBuilder,
-        private profileService: ProfileService,
-        private route: ActivatedRoute
+        private profileService: ProfileService
     ) { }
     ngOnInit(): void {
         this.buildForms();
-        this.route.data
-              .subscribe((data: { profile: Profile }) => {
-                this.profile = data.profile;
-              });
-        console.log(this.profile);
+        this.getProfile();
+    }
+    getProfile() {
+        var test = this.profileService.getProfileData(localStorage.getItem('token'));
+        console.log(test);
     }
 
     displayIncomeForm() {
@@ -45,39 +42,19 @@ export class ProfileComponent {
         this.showExpenseForm = false;
     }
     onExpenseSubmit() {
-        this.expenseData = this.expenseForm.value;
-        this.expenseData.token = localStorage.getItem('token');
-        this.expenseData.expenseAmount = Number(this.expenseData.expenseAmount);
-        this.saveExpense();
-    }
-    onIncomeSubmit() {
-        this.incomeData = this.incomeForm.value;
-        this.incomeData.token = localStorage.getItem('token');
-        this.incomeData.incomeAmount = Number(this.incomeData.incomeAmount);
+        this.expenseForm = this.expenseForm.value;
         this.saveIncome();
     }
+    onSubmit() {
+        this.incomeForm = this.incomeForm.value;
+        this.saveExpense();
+    }
     saveIncome() {
-        this.profileService.saveIncome(this.incomeData)
-            .then(res => { 
-                if(res == 'success') {
-                    this.profile.income.push({ 'income_name': this.incomeData.incomeCategory, 'income_amount': this.incomeData.incomeAmount });
-                    this.showIncomeForm = false;
-                } else {
-                    alert("An error has occured.");
-                }
-            });
+        console.log(this.incomeForm);
+        //this.profileService.saveIncome(this.incomeForm);
     }
     saveExpense() {
-        this.profileService.saveExpense(this.expenseData)
-            .then(res => { 
-                if(res == 'success') {
-                    this.profile.expenses.push({ 'expense_name': this.expenseData.expenseCategory, 'expense_amount': this.expenseData.expenseAmount });
-                    this.showExpenseForm = false;
-                } else {
-                    alert("An error has occured.");
-                }
-            });
-        this.showExpenseForm = false;
+        this.profileService.saveExpense(this.expenseForm);
     }
     
 

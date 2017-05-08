@@ -11,12 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var profile_service_1 = require("./profile.service");
-var router_1 = require("@angular/router");
 var ProfileComponent = (function () {
-    function ProfileComponent(fb, profileService, route) {
+    function ProfileComponent(fb, profileService) {
         this.fb = fb;
         this.profileService = profileService;
-        this.route = route;
         this.showExpenseForm = false;
         this.showIncomeForm = false;
         this.formErrors = {
@@ -41,13 +39,12 @@ var ProfileComponent = (function () {
         };
     }
     ProfileComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.buildForms();
-        this.route.data
-            .subscribe(function (data) {
-            _this.profile = data.profile;
-        });
-        console.log(this.profile);
+        this.getProfile();
+    };
+    ProfileComponent.prototype.getProfile = function () {
+        var test = this.profileService.getProfileData(localStorage.getItem('token'));
+        console.log(test);
     };
     ProfileComponent.prototype.displayIncomeForm = function () {
         this.showIncomeForm = true;
@@ -62,43 +59,19 @@ var ProfileComponent = (function () {
         this.showExpenseForm = false;
     };
     ProfileComponent.prototype.onExpenseSubmit = function () {
-        this.expenseData = this.expenseForm.value;
-        this.expenseData.token = localStorage.getItem('token');
-        this.expenseData.expenseAmount = Number(this.expenseData.expenseAmount);
-        this.saveExpense();
-    };
-    ProfileComponent.prototype.onIncomeSubmit = function () {
-        this.incomeData = this.incomeForm.value;
-        this.incomeData.token = localStorage.getItem('token');
-        this.incomeData.incomeAmount = Number(this.incomeData.incomeAmount);
+        this.expenseForm = this.expenseForm.value;
         this.saveIncome();
     };
+    ProfileComponent.prototype.onSubmit = function () {
+        this.incomeForm = this.incomeForm.value;
+        this.saveExpense();
+    };
     ProfileComponent.prototype.saveIncome = function () {
-        var _this = this;
-        this.profileService.saveIncome(this.incomeData)
-            .then(function (res) {
-            if (res == 'success') {
-                _this.profile.income.push({ 'income_name': _this.incomeData.incomeCategory, 'income_amount': _this.incomeData.incomeAmount });
-                _this.showIncomeForm = false;
-            }
-            else {
-                alert("An error has occured.");
-            }
-        });
+        console.log(this.incomeForm);
+        //this.profileService.saveIncome(this.incomeForm);
     };
     ProfileComponent.prototype.saveExpense = function () {
-        var _this = this;
-        this.profileService.saveExpense(this.expenseData)
-            .then(function (res) {
-            if (res == 'success') {
-                _this.profile.expenses.push({ 'expense_name': _this.expenseData.expenseCategory, 'expense_amount': _this.expenseData.expenseAmount });
-                _this.showExpenseForm = false;
-            }
-            else {
-                alert("An error has occured.");
-            }
-        });
-        this.showExpenseForm = false;
+        this.profileService.saveExpense(this.expenseForm);
     };
     ProfileComponent.prototype.buildForms = function () {
         var _this = this;
@@ -170,8 +143,7 @@ ProfileComponent = __decorate([
         templateUrl: './profile.component.html',
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
-        profile_service_1.ProfileService,
-        router_1.ActivatedRoute])
+        profile_service_1.ProfileService])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
-//# sourceMappingURL=profile.component.js.map
+//# sourceMappingURL=add-expense.component.js.map

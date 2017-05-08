@@ -19,15 +19,18 @@ var footer_component_1 = require("./footer/footer.component");
 var home_component_1 = require("./home/home.component");
 var affordability_component_1 = require("./affordability/affordability.component");
 var interest_component_1 = require("./interest/interest.component");
-var invest101_component_1 = require("./invest101/invest101.component");
-var resources_component_1 = require("./resources/resources.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var success_component_1 = require("./register/success.component");
 var profile_component_1 = require("./profile/profile.component");
 var logout_component_1 = require("./profile/logout.component");
 var auth_guard_1 = require("./auth.guard");
+var add_income_component_1 = require("./profile/add-income.component");
+var profile_resolve_1 = require("./profile/profile.resolve");
+var investing_component_1 = require("./investing/investing.component");
+var finance_component_1 = require("./finance/finance.component");
 var auth_service_1 = require("./login/auth.service");
+var profile_service_1 = require("./profile/profile.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -52,17 +55,20 @@ AppModule = __decorate([
             home_component_1.HomeComponent,
             affordability_component_1.AffordabilityComponent,
             interest_component_1.InterestComponent,
-            invest101_component_1.Invest101Component,
-            resources_component_1.ResourcesComponent,
             login_component_1.LoginFormComponent,
             register_component_1.RegisterFormComponent,
             profile_component_1.ProfileComponent,
             logout_component_1.LogoutComponent,
-            success_component_1.SuccessComponent
+            success_component_1.SuccessComponent,
+            add_income_component_1.AddIncomeComponent,
+            investing_component_1.InvestingComponent,
+            finance_component_1.FinanceComponent
         ],
         providers: [
             auth_service_1.AuthService,
-            auth_guard_1.AuthGuard
+            auth_guard_1.AuthGuard,
+            profile_service_1.ProfileService,
+            profile_resolve_1.ProfileDetailResolve
         ],
         bootstrap: [
             app_component_1.AppComponent
