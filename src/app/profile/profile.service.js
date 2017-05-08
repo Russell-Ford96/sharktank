@@ -22,11 +22,11 @@ var ProfileService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    ProfileService.prototype.getExpenses = function () {
-        return;
-    };
-    ProfileService.prototype.getIncome = function () {
-        return;
+    ProfileService.prototype.editProfile = function (data) {
+        return this.http.put('api/profile', JSON.stringify(data), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     ProfileService.prototype.saveIncome = function (data) {
         return this.http.post('api/income', JSON.stringify(data), { headers: this.headers })
@@ -34,8 +34,32 @@ var ProfileService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    ProfileService.prototype.editIncome = function (data) {
+        return this.http.put('api/income', JSON.stringify(data), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    ProfileService.prototype.deleteIncome = function (data) {
+        return this.http.delete('api/income', { body: JSON.stringify(data), headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     ProfileService.prototype.saveExpense = function (data) {
         return this.http.post('api/expense', JSON.stringify(data), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    ProfileService.prototype.editExpense = function (data) {
+        return this.http.put('api/expense', JSON.stringify(data), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    ProfileService.prototype.deleteExpense = function (data) {
+        return this.http.delete('api/expense', { body: JSON.stringify(data), headers: this.headers })
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);

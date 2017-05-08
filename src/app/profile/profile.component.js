@@ -19,11 +19,15 @@ var ProfileComponent = (function () {
         this.route = route;
         this.showExpenseForm = false;
         this.showIncomeForm = false;
+        this.showProfileForm = false;
         this.formErrors = {
             'incomeCategory': '',
             'incomeAmount': '',
             'expenseCategory': '',
-            'expenseAmount': ''
+            'expenseAmount': '',
+            'firstName': '',
+            'lastName': '',
+            'savings': ''
         };
         this.validationMessages = {
             'incomeCategory': {
@@ -48,6 +52,43 @@ var ProfileComponent = (function () {
                 'required': 'Savings field cannot be empty.'
             }
         };
+        this.doughnutChartLegend = true;
+        this.doughnutChartType = 'doughnut';
+        this.datasets = [
+            {
+                label: "Compounded Interest",
+                data: [20, 40, 60]
+            }
+        ];
+        this.labels = ['2017'];
+        this.options = {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                        gridLines: {
+                            display: false,
+                        },
+                        ticks: {
+                            display: false,
+                            fontColor: "#ffffff"
+                        },
+                    }],
+                yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false,
+                            fontColor: '#ffffff'
+                        }
+                    }]
+            },
+            legend: {
+                labels: {
+                    fontColor: '#ffffff'
+                }
+            }
+        };
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -58,14 +99,61 @@ var ProfileComponent = (function () {
         });
         console.log(this.profile);
     };
-    ProfileComponent.prototype.displayEditProfileForm = function () {
-        this.showEditProfileForm = true;
+    ProfileComponent.prototype.confirmDeleteIncome = function (incomeRow, index) {
+        var _this = this;
+        if (confirm("Are you sure you want to delete this?")) {
+            incomeRow.token = localStorage.getItem('token');
+            this.profileService.deleteIncome(incomeRow)
+                .then(function (res) {
+                if (res == 'success')
+                    _this.profile.income.splice(index, 1);
+                else
+                    alert("An error has occured");
+            });
+        }
+    };
+    ProfileComponent.prototype.confirmDeleteExpense = function (expenseRow, index) {
+        var _this = this;
+        if (confirm("Are you sure you want to delete this?")) {
+            expenseRow.token = localStorage.getItem('token');
+            this.profileService.deleteExpense(expenseRow)
+                .then(function (res) {
+                if (res == 'success')
+                    _this.profile.expenses.splice(index, 1);
+                else
+                    alert("An error has occured");
+            });
+        }
+    };
+    ProfileComponent.prototype.showEditIncome = function (incomeRow) {
+        this.selectedIncome = incomeRow;
+        this.incomeForm.setValue({ incomeCategory: incomeRow.income_name, incomeAmount: incomeRow.income_amount });
+        this.showIncomeForm = true;
+        this.editingIncome = true;
+    };
+    ProfileComponent.prototype.showEditExpense = function (expenseRow) {
+        this.selectedExpense = expenseRow;
+        this.expenseForm.setValue({ expenseCategory: expenseRow.expense_name, expenseAmount: expenseRow.expense_amount });
+        this.showExpenseForm = true;
+        this.editingExpense = true;
+    };
+    ProfileComponent.prototype.displayProfileForm = function () {
+        this.profileForm.setValue({
+            firstName: this.profile.firstName,
+            lastName: this.profile.lastName,
+            savings: this.profile.savings
+        });
+        this.showProfileForm = true;
     };
     ProfileComponent.prototype.displayIncomeForm = function () {
+        this.incomeForm.setValue({ incomeCategory: '', incomeAmount: '' });
         this.showIncomeForm = true;
+        this.editingIncome = false;
     };
     ProfileComponent.prototype.displayExpenseForm = function () {
+        this.expenseForm.setValue({ expenseCategory: '', expenseAmount: '' });
         this.showExpenseForm = true;
+        this.editingExpense = false;
     };
     ProfileComponent.prototype.cancelIncome = function () {
         this.showIncomeForm = false;
@@ -74,26 +162,60 @@ var ProfileComponent = (function () {
         this.showExpenseForm = false;
     };
     ProfileComponent.prototype.cancelEditProfile = function () {
-        this.showEditProfileForm = false;
+        this.showProfileForm = false;
+    };
+    ProfileComponent.prototype.onProfileSubmit = function () {
+        console.log("hit submit");
+        var profileData = this.profileForm.value;
+        profileData.token = localStorage.getItem('token');
+        profileData.savings = Number(profileData.savings);
+        this.saveProfile(profileData);
     };
     ProfileComponent.prototype.onExpenseSubmit = function () {
-        this.expenseData = this.expenseForm.value;
-        this.expenseData.token = localStorage.getItem('token');
-        this.expenseData.expenseAmount = Number(this.expenseData.expenseAmount);
-        this.saveExpense();
+        var expenseData = this.expenseForm.value;
+        expenseData.token = localStorage.getItem('token');
+        expenseData.expenseAmount = Number(expenseData.expenseAmount);
+        if (this.editingExpense) {
+            expenseData.oldAmount = this.selectedExpense.expense_amount;
+            expenseData.oldName = this.selectedExpense.expense_name;
+            this.editExpense(expenseData);
+        }
+        else
+            this.saveExpense(expenseData);
     };
     ProfileComponent.prototype.onIncomeSubmit = function () {
-        this.incomeData = this.incomeForm.value;
-        this.incomeData.token = localStorage.getItem('token');
-        this.incomeData.incomeAmount = Number(this.incomeData.incomeAmount);
-        this.saveIncome();
+        var incomeData = this.incomeForm.value;
+        incomeData.token = localStorage.getItem('token');
+        incomeData.incomeAmount = Number(incomeData.incomeAmount);
+        if (this.editingIncome) {
+            incomeData.oldAmount = this.selectedIncome.income_amount;
+            incomeData.oldName = this.selectedIncome.income_name;
+            this.editIncome(incomeData);
+        }
+        else
+            this.saveIncome(incomeData);
     };
-    ProfileComponent.prototype.saveIncome = function () {
+    ProfileComponent.prototype.saveProfile = function (profileData) {
         var _this = this;
-        this.profileService.saveIncome(this.incomeData)
+        console.log(profileData);
+        this.profileService.editProfile(profileData)
             .then(function (res) {
             if (res == 'success') {
-                _this.profile.income.push({ 'income_name': _this.incomeData.incomeCategory, 'income_amount': _this.incomeData.incomeAmount });
+                _this.profile.firstName = profileData.firstName;
+                _this.profile.lastName = profileData.lastName;
+                _this.profile.savings = profileData.savings;
+                _this.showProfileForm = false;
+            }
+            else
+                alert("An error has occured");
+        });
+    };
+    ProfileComponent.prototype.saveIncome = function (incomeData) {
+        var _this = this;
+        this.profileService.saveIncome(incomeData)
+            .then(function (res) {
+            if (res == 'success') {
+                _this.profile.income.push({ 'income_name': incomeData.incomeCategory, 'income_amount': incomeData.incomeAmount });
                 _this.showIncomeForm = false;
             }
             else {
@@ -101,12 +223,41 @@ var ProfileComponent = (function () {
             }
         });
     };
-    ProfileComponent.prototype.saveExpense = function () {
+    ProfileComponent.prototype.editIncome = function (incomeData) {
         var _this = this;
-        this.profileService.saveExpense(this.expenseData)
+        this.profileService.editIncome(incomeData)
             .then(function (res) {
             if (res == 'success') {
-                _this.profile.expenses.push({ 'expense_name': _this.expenseData.expenseCategory, 'expense_amount': _this.expenseData.expenseAmount });
+                _this.selectedIncome.income_name = incomeData.incomeCategory;
+                _this.selectedIncome.income_amount = incomeData.incomeAmount;
+                _this.showIncomeForm = false;
+            }
+            else {
+                alert("An error has occured.");
+            }
+        });
+    };
+    ProfileComponent.prototype.saveExpense = function (expenseData) {
+        var _this = this;
+        this.profileService.saveExpense(expenseData)
+            .then(function (res) {
+            if (res == 'success') {
+                _this.profile.expenses.push({ 'expense_name': expenseData.expenseCategory, 'expense_amount': expenseData.expenseAmount });
+                _this.showExpenseForm = false;
+            }
+            else {
+                alert("An error has occured.");
+            }
+        });
+        this.showExpenseForm = false;
+    };
+    ProfileComponent.prototype.editExpense = function (expenseData) {
+        var _this = this;
+        this.profileService.editExpense(expenseData)
+            .then(function (res) {
+            if (res == 'success') {
+                _this.selectedExpense.expense_name = expenseData.expenseCategory;
+                _this.selectedExpense.expense_amount = expenseData.expenseAmount;
                 _this.showExpenseForm = false;
             }
             else {
@@ -129,7 +280,6 @@ var ProfileComponent = (function () {
         });
         this.incomeForm.valueChanges
             .subscribe(function (data) { return _this.onValueChanged(data); });
-        this.onValueChanged(); // (re)set validation messages now
         this.expenseForm = this.fb.group({
             'expenseCategory': ['', [
                     forms_1.Validators.required
@@ -142,6 +292,22 @@ var ProfileComponent = (function () {
         });
         this.expenseForm.valueChanges
             .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.profileForm = this.fb.group({
+            'firstName': ['', [
+                    forms_1.Validators.required
+                ]
+            ],
+            'lastName': ['', [
+                    forms_1.Validators.required
+                ]
+            ],
+            'savings': ['', [
+                    forms_1.Validators.required
+                ]
+            ]
+        });
+        this.profileForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
         this.onValueChanged(); // (re)set validation messages now
     };
     ProfileComponent.prototype.onValueChanged = function (data) {
@@ -150,6 +316,9 @@ var ProfileComponent = (function () {
             return;
         }
         if (!this.expenseForm) {
+            return;
+        }
+        if (!this.profileForm) {
             return;
         }
         var form = this.incomeForm;
@@ -165,6 +334,18 @@ var ProfileComponent = (function () {
             }
         }
         var form = this.expenseForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+        var form = this.profileForm;
         for (var field in this.formErrors) {
             // clear previous error message (if any)
             this.formErrors[field] = '';

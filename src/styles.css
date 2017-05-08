@@ -49,10 +49,6 @@ html{
 .content{
     min-height:calc(100vh);
 }
-#pieChart{
-    background-color:black; 
-    height:400px;
-}
 /*  ----------- */
 @media only screen and (max-device-width : 768px) {
     .header{

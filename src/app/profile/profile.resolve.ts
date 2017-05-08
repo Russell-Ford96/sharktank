@@ -21,6 +21,7 @@ export class ProfileDetailResolve implements Resolve<any> {
             if (profile) {
                 profile.firstName = profile.firstName.substring(1,profile.firstName.length - 1);
                 profile.lastName = profile.lastName.substring(1,profile.lastName.length - 1);
+                profile.email = profile.email.substring(1,profile.email.length - 1);
                 for(var income in profile.income) {
                     var income_name = String(profile.income[income].income_name);
                     incomeArray.push({

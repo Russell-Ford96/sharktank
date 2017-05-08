@@ -95,6 +95,52 @@ router.post('/income', (req, res) => {
         connection.release();
     });
 });
+router.put('/income', (req, res) => {
+    const queryString = "UPDATE User_Income SET income_name=?, income_amount=? WHERE user_id=? AND income_name=? AND income_amount=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        var income_name = pool.escape(req.body.incomeCategory);
+        var income_amount = pool.escape(req.body.incomeAmount);
+        var old_income_name = pool.escape(req.body.oldName);
+        var old_expense_amount = pool.escape(req.body.oldAmount);
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        //select users stored incomes from db
+        connection.query(queryString, [income_name, income_amount, decoded.user_id, old_income_name, old_income_amount], function(error, results, fields) {
+            if(error) throw error;
+            res.send(JSON.stringify('success'));
+
+        });
+        connection.release();
+    });
+});
+router.delete('/income', (req, res) => {
+    const queryString = "DELETE FROM User_Income WHERE income_name=? AND income_amount=? AND user_id=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        var income_name = pool.escape(req.body.income_name);
+        var income_amount = pool.escape(req.body.income_amount);
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        //select users stored incomes from db
+        connection.query(queryString, [income_name, income_amount, decoded.user_id], function(error, results, fields) {
+            if(error) throw error;
+            res.send(JSON.stringify('success'));
+
+        });
+        connection.release();
+    });
+});
 router.post('/expense', (req, res) => {
     const queryString = "INSERT INTO User_Expenses VALUES(?,?,?)";
     var decoded = jwt.verify(req.body.token, 'secret');
@@ -108,6 +154,52 @@ router.post('/expense', (req, res) => {
         });
         var expense_name = pool.escape(req.body.expenseCategory);
         var expense_amount = pool.escape(req.body.expenseAmount);
+        connection.query(queryString, [decoded.user_id, expense_name, expense_amount], function (error, results, fields) {
+            if (error) throw error;
+            res.send(JSON.stringify('success'));
+
+            connection.release();
+
+        });
+    });
+});
+router.put('/expense', (req, res) => {
+    const queryString = "UPDATE User_Expenses SET expense_name=?, expense_amount=? WHERE user_id=? AND expense_name=? AND expense_amount=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        var expense_name = pool.escape(req.body.expenseCategory);
+        var expense_amount = pool.escape(req.body.expenseAmount);
+        var old_expense_name = pool.escape(req.body.oldName);
+        var old_expense_amount = pool.escape(req.body.oldAmount);
+        connection.query(queryString, [expense_name, expense_amount, decoded.user_id, old_expense_name, old_expense_amount], function (error, results, fields) {
+            if (error) throw error;
+            res.send(JSON.stringify('success'));
+
+            connection.release();
+
+        });
+    });
+});
+router.delete('/expense', (req, res) => {
+    const queryString = "DELETE FROM User_Expenses WHERE user_id=? AND expense_name=? AND expense_amount=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        var expense_name = pool.escape(req.body.expense_name);
+        var expense_amount = pool.escape(req.body.expense_amount);
         connection.query(queryString, [decoded.user_id, expense_name, expense_amount], function (error, results, fields) {
             if (error) throw error;
             res.send(JSON.stringify('success'));
@@ -148,6 +240,8 @@ router.post('/profile', (req, res) => {
                     res.send(JSON.stringify({
                         'firstName': results[0].first_name,
                         'lastName': results[0].last_name,
+                        'email': results[0].email,
+                        'savings': results[0].savings,
                         'income': income,
                         'expenses': expenses
                     }));
@@ -159,6 +253,29 @@ router.post('/profile', (req, res) => {
             if(error) throw error;
         });
         connection.release();
+    });
+});
+router.put('/profile', (req, res) => {
+    const queryString = "UPDATE Users SET first_name=?, last_name=?, savings=? WHERE user_id=?";
+    var decoded = jwt.verify(req.body.token, 'secret');
+    pool.getConnection(function(err, connection) {
+        connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
+            if(results.length == 0) {
+                res.send('invalid token');
+            }
+
+            if(error) throw error;
+        });
+        var first_name = pool.escape(req.body.firstName);
+        var last_name = pool.escape(req.body.lastName);
+        var savings = pool.escape(req.body.savings);
+        connection.query(queryString, [first_name, last_name, savings, decoded.user_id], function (error, results, fields) {
+            if (error) throw error;
+            res.send(JSON.stringify('success'));
+
+            connection.release();
+
+        });
     });
 });
 

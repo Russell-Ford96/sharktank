@@ -3,13 +3,13 @@
         <h1>Profile</h1>
         <div class="col-md-12">
             <h2>Personal Information</h2>
-            <span *ngIf="!showEditProfileForm">
+            <span>
             <strong>Name:</strong> {{ profile.firstName }} {{ profile.lastName }}<br>
             <strong>Email:</strong> {{ profile.email }}<br>
-            <strong>Savings:</strong> {{profile.saving}}<br>
+            <strong>Savings:</strong> {{profile.savings}}<br>
             </span>
 
-            <form [formGroup]="editProfileForm" *ngIf="showEditProfileForm" class="col-md-4">
+            <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()" *ngIf="showProfileForm" class="col-md-4">
 
                 <div class="form-group">
                     <label for="firstName">First Name</label>
@@ -33,10 +33,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success" [disabled]="!editProfileForm.valid">Save</button>
+                <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Save</button>
                 <button type="button" (click)="cancelEditProfile()" class="btn btn-warning">Cancel</button>
             </form>
-            <span id="addExpense" (click)="displayEditProfileForm()" *ngIf="!showEditProfileForm">    
+            <span id="addExpense" (click)="displayProfileForm()" *ngIf="!showProfileForm">    
                 Edit Profile
             </span>
         </div>
@@ -53,10 +53,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let incomeRow of profile.income">
+                        <tr *ngFor="let incomeRow of profile.income; let i = index;">
                             <td>{{ incomeRow.income_name }}</td>
                             <td>{{ incomeRow.income_amount }}</td>
-                            <td> <button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">X</button></td>
+                            <td> <button type="button" class="btn btn-warning" (click)="showEditIncome(incomeRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteIncome(incomeRow, i)">X</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success" [disabled]="!incomeForm.valid">Add</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!incomeForm.valid">Save</button>
                     <button type="button" (click)="cancelIncome()" class="btn btn-danger">Cancel</button>
                 </form>
                 <h2>Expenses</h2>
@@ -92,10 +92,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let expenseRow of profile.expenses">
+                        <tr *ngFor="let expenseRow of profile.expenses; let i = index;">
                             <td>{{ expenseRow.expense_name }}</td>
                             <td>{{ expenseRow.expense_amount }}</td>
-                            <td> <button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">X</button></td>
+                            <td> <button type="button" class="btn btn-warning" (click)="showEditExpense(expenseRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteExpense(expenseRow, i)">X</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -118,13 +118,23 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Add</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Save</button>
                     <button type="button" (click)="cancelExpense()" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
         </div>
-        <div class="col-md-6" id="pieChart">
-
+        <div class="col-md-6 overlay">
+                <div style="display: block">
+                    <canvas baseChart
+                            [datasets]="datasets"
+                            [labels]="labels"
+                            [options]="options"
+                            [legend]="doughnutChartLegend"
+                            [colors]="chartColors"
+                            [chartType]="doughnutChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                </div>
         </div>
     </div>
 </div>
