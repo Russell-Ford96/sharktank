@@ -41,11 +41,11 @@ var ProfileDetailResolve = (function () {
                     });
                 }
                 profile.expenses = expenseArray;
-                console.log(profile);
                 return profile;
             }
             else {
-                _this.router.navigate(['/login']);
+                if (route.url[0].path == 'login')
+                    _this.router.navigate(['/login']);
                 return false;
             }
         });
@@ -54,7 +54,8 @@ var ProfileDetailResolve = (function () {
 }());
 ProfileDetailResolve = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [profile_service_1.ProfileService, router_1.Router])
+    __metadata("design:paramtypes", [profile_service_1.ProfileService,
+        router_1.Router])
 ], ProfileDetailResolve);
 exports.ProfileDetailResolve = ProfileDetailResolve;
 //# sourceMappingURL=profile.resolve.js.map

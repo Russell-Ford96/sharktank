@@ -9,10 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var profile_service_1 = require("../profile/profile.service");
 var ng2_charts_1 = require("ng2-charts");
 var FinanceComponent = (function () {
-    function FinanceComponent() {
+    function FinanceComponent(profileService, route) {
+        this.profileService = profileService;
+        this.route = route;
         this.displayChart = false;
+        this.income = 0;
+        this.expenses = 0;
         this.barChartLegend = true;
         this.barChartType = 'bar';
         this.datasets = [
@@ -63,18 +69,22 @@ var FinanceComponent = (function () {
             }
         };
     }
+    FinanceComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.data
+            .subscribe(function (data) {
+            _this.profile = data.profile;
+        });
+        for (var income in this.profile.income) {
+            this.income += this.profile.income[income].income_amount;
+        }
+        for (var expense in this.profile.expenses) {
+            this.expenses += this.profile.expenses[expense].expense_amount;
+        }
+        console.log(this.profile);
+    };
     FinanceComponent.prototype.onKey = function (event) {
-        if (event.target.id == "incomeInput")
-            this.income = event.target.value;
-        else if (event.target.id == "purchaseAmount")
-            this.purchaseAmount = event.target.value;
-        else if (event.target.id == "expensesInput")
-            this.expenses = event.target.value;
-        else if (event.target.id == "apr")
-            this.apr = event.target.value;
-        else if (event.target.id == "downPayment")
-            this.downPayment = event.target.value;
-        else if (event.target.id == "termMonths") {
+        if (event.target.id == "termMonths") {
             this.termMonths = event.target.value;
             this.termYears = this.termMonths / 12;
         }
@@ -137,7 +147,9 @@ FinanceComponent = __decorate([
     core_1.Component({
         selector: 'finance',
         templateUrl: './finance.component.html',
-    })
+    }),
+    __metadata("design:paramtypes", [profile_service_1.ProfileService,
+        router_1.ActivatedRoute])
 ], FinanceComponent);
 exports.FinanceComponent = FinanceComponent;
 //# sourceMappingURL=finance.component.js.map

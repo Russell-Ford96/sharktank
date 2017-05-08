@@ -6,11 +6,15 @@
             <!-- Form Name -->
             <legend class="centerWhite">Can I Afford It?</legend>
 
+            <div style="text-align: center">
+                <h2>{{ message }}</h2>
+            </div>
+
             <!-- Text input-->
             <div class="form-group">
               <label class="col-md-4 control-label" for="affordInput">Purchase Amount</label>  
               <div class="col-md-4">
-              <input (keyup)="onKey($event)" id="affordInput" name="affordInput" type="text" placeholder="0" class="form-control input-md" required="">
+                  <input id="affordInput" name="affordInput" type="text" placeholder="0" value={{itemCost}} class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -19,7 +23,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="incomeInput">Monthly Income</label>  
               <div class="col-md-4">
-              <input (keyup)="onKey($event)" id="incomeInput" name="incomeInput" type="text" placeholder="0" class="form-control input-md" required="">
+                  <input id="incomeInput" name="incomeInput" type="text" placeholder="0" value="{{monthlyIncome}}" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -28,7 +32,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="inputSavings">Savings</label>  
               <div class="col-md-4">
-                  <input (keyup)="onKey($event)" id="inputSavings" name="inputSavings" type="text" placeholder="0" class="form-control input-md" required="">
+                  <input id="inputSavings" name="inputSavings" type="text" placeholder="0" value="{{savings}}" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -37,7 +41,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="expenseInput">Monthly Expenses</label>  
               <div class="col-md-4">
-              <input (keyup)="onKey($event)" id="expenseInput" name="expenseInput" type="text" placeholder="0" class="form-control input-md" required="">
+                  <input id="expenseInput" name="expenseInput" type="text" placeholder="0" value="{{monthlyExpenses}}" class="form-control input-md" required="">
                 
               </div>
             </div>

@@ -18,10 +18,10 @@ import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'affordability', component: AffordabilityComponent },
+    { path: 'affordability', component: AffordabilityComponent, resolve: { profile: ProfileDetailResolve } },
     { path: 'interest', component: InterestComponent },
     { path: 'investing', component: InvestingComponent},
-    { path: 'finance', component: FinanceComponent },
+    { path: 'finance', component: FinanceComponent, resolve: { profile: ProfileDetailResolve } },
     { path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], resolve: { profile: ProfileDetailResolve } },

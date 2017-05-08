@@ -1,4 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { Profile } from '../profile/profile';
+import { ProfileService } from '../profile/profile.service'
 
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -9,10 +13,11 @@ import { BaseChartDirective } from 'ng2-charts';
 export class FinanceComponent  { 
     @ViewChild(BaseChartDirective)
     public chart: BaseChartDirective;
-
     displayChart = false;
-    income: number;
-    expenses: number;
+
+    profile: Profile;
+    income: number = 0;
+    expenses: number = 0;
     purchaseAmount: number;
     downPayment: number;
     apr: number;
@@ -21,18 +26,26 @@ export class FinanceComponent  {
     displayAffordability: boolean;
     canAfford: string;
     
-    onKey(event: any) { // without type info
-        if(event.target.id == "incomeInput")
-            this.income = event.target.value;
-        else if(event.target.id == "purchaseAmount")
-            this.purchaseAmount = event.target.value;
-        else if(event.target.id == "expensesInput")
-            this.expenses = event.target.value;
-        else if(event.target.id == "apr")
-            this.apr = event.target.value;
-        else if(event.target.id == "downPayment")
-            this.downPayment = event.target.value;
-        else if(event.target.id == "termMonths") {
+    constructor(
+        private profileService: ProfileService,
+        private route: ActivatedRoute
+    ) { }
+    ngOnInit(): void {
+        this.route.data
+              .subscribe((data: { profile: Profile }) => {
+                this.profile = data.profile;
+              });
+        for(var income in this.profile.income) {
+            this.income += this.profile.income[income].income_amount;
+        }
+        for(var expense in this.profile.expenses) {
+            this.expenses += this.profile.expenses[expense].expense_amount;
+        }
+        console.log(this.profile);
+    }
+
+    onKey(event: any) {
+        if(event.target.id == "termMonths") {
             this.termMonths = event.target.value;
             this.termYears = this.termMonths / 12;
         } else if(event.target.id == "termYears") {

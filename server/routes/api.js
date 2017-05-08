@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
     var password = pool.escape(req.body.password);
     var confirmPass = pool.escape(req.body.confirmPassword);
     if(password != confirmPass)
-        res.send(JSON.stringify("Passwords do not match"), 400);
+        res.status(400).send(JSON.stringify("Passwords do not match"));
     var fname = pool.escape(req.body.firstName);
     var lname = pool.escape(req.body.lastName);
     //check if passwords are the same
@@ -123,7 +123,12 @@ router.post('/expense', (req, res) => {
 router.post('/profile', (req, res) => {
     const queryIncome = "SELECT * FROM User_Income WHERE user_id=?";
     const queryExpense = "SELECT * FROM User_Expenses WHERE user_id=?";
-    var decoded = jwt.verify(req.body.token, 'secret');
+    if(req.body.token != null) {
+        var decoded = jwt.verify(req.body.token, 'secret');
+    } else {
+        res.send(JSON.stringify(null));
+        return 0;
+    }
     pool.getConnection(function(err, connection) {
         connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
             if(results.length == 0) {

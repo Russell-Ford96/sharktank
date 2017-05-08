@@ -8,7 +8,10 @@ import { ProfileService } from './profile.service';
 
 @Injectable()
 export class ProfileDetailResolve implements Resolve<any> {
-    constructor(private profileService: ProfileService, private router: Router) { }
+    constructor(
+        private profileService: ProfileService,
+        private router: Router,
+    ){ }
     
     resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
         let token = localStorage.getItem('token');
@@ -34,10 +37,10 @@ export class ProfileDetailResolve implements Resolve<any> {
                     });
                 }
                 profile.expenses = expenseArray;
-                console.log(profile);
                 return profile;
             } else { // id not found
-                this.router.navigate(['/login']);
+                if(route.url[0].path == 'login')
+                    this.router.navigate(['/login']);
                 return false;
             }
         });
