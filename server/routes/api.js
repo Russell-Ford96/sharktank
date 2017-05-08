@@ -60,9 +60,6 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, results[0].password, function(err, result) {
                 if(result) {
                     var token = jwt.sign(results[0], 'secret');
-                    jwt.verify(token, 'secret', function(err, decoded) {
-                        console.log(decoded.email);
-                    });
                     res.setHeader('Content-Type', 'application/json');
                     res.send(JSON.stringify(token));
                 } else {
