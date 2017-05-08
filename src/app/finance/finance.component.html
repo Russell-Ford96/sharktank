@@ -30,7 +30,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="purchaseAmount">Purchase Amount</label>  
               <div class="col-md-4">
-                  <input id="purchaseAmount" name="purchaseAmount" type="number" placeholder="0" value="{{purchaseAmount}}" class="form-control input-md" required="">
+                  <input id="purchaseAmount" name="purchaseAmount" type="number" placeholder="0" [(ngModel)]="purchaseAmount" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="downPayment">Down Payment</label>  
               <div class="col-md-4">
-                  <input id="downPayment" name="downPayment" type="number" placeholder="0" value="{{downPayment}}" class="form-control input-md" required="">
+                  <input id="downPayment" name="downPayment" type="number" placeholder="0" [(ngModel)]="downPayment" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="incomeInput">Monthly Income</label>  
               <div class="col-md-4">
-                  <input id="incomeInput" name="incomeInput" type="number" placeholder="0" value="{{income}}" class="form-control input-md" required="">
+                  <input id="incomeInput" name="incomeInput" type="number" placeholder="0" [(ngModel)]="income" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="expensesInput">Monthly Expenses</label>  
               <div class="col-md-4">
-                  <input id="expensesInput" name="expensesInput" type="number" placeholder="0" value="{{expenses}}" class="form-control input-md" required="">
+                  <input id="expensesInput" name="expensesInput" type="number" placeholder="0" [(ngModel)]="expenses" class="form-control input-md" required="">
                 
               </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="apr">APR</label>  
               <div class="col-md-4">
-                  <input id="apr" name="apr" type="number" placeholder="0" value="{{apr}}" class="form-control input-md" required="">
+                  <input id="apr" name="apr" type="number" placeholder="0" [(ngModel)]="apr" class="form-control input-md" required="">
                 
               </div>
             </div>
