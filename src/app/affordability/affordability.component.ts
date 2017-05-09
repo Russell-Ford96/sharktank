@@ -32,6 +32,8 @@ export class AffordabilityComponent  {
         for(var expense in this.profile.expenses) {
             this.monthlyExpenses += this.profile.expenses[expense].expense_amount;
         }
+        this.savings=this.profile.savings;
+        console.log(this.profile.savings);
     }
 
     canAfford(event: any) {

@@ -1,12 +1,12 @@
 <div class="container-fluid tree-background">
     <div class="row full-screen-row overlay">
         <h1>Profile</h1>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h2>Personal Information</h2>
             <span>
-            <strong>Name:</strong> {{ profile.firstName }} {{ profile.lastName }}<br>
-            <strong>Email:</strong> {{ profile.email }}<br>
-            <strong>Savings:</strong> {{profile.savings}}<br>
+                <strong>Name:</strong> {{ profile.firstName }} {{ profile.lastName }}<br>
+                <strong>Email:</strong> {{ profile.email }}<br>
+                <strong>Savings:</strong> {{profile.savings}}<br>
             </span>
 
             <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()" *ngIf="showProfileForm" class="col-md-4">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="savings">Savings</label>
-                    <input type="text" class="form-control" id="savings" formControlName="savings" required>
+                    <input type="number" class="form-control" id="savings" formControlName="savings" required>
                     <div *ngIf="formErrors.savings" class="alert alert-danger">
                         {{ formErrors.savings }}
                     </div>
@@ -36,11 +36,11 @@
                 <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Save</button>
                 <button type="button" (click)="cancelEditProfile()" class="btn btn-warning">Cancel</button>
             </form>
-            <span id="addExpense" (click)="displayProfileForm()" *ngIf="!showProfileForm">    
+            <div id="addExpense" (click)="displayProfileForm()" *ngIf="!showProfileForm">    
                 Edit Profile
-            </span>
-        </div>
-        <div class="col-md-6">
+            </div>
+
+
 
             <div class="col-md-6">
                 <h2>Income</h2>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="form-group">
                         <label for="incomeAmount">Amount</label>
-                        <input type="text" class="form-control" id="incomeAmount" formControlName="incomeAmount" required>
+                        <input type="number" class="form-control" id="incomeAmount" formControlName="incomeAmount" required>
                         <div *ngIf="formErrors.incomeAmount" class="alert alert-danger">
                             {{ formErrors.incomeAmount }}
                         </div>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="form-group">
                         <label for="expenseAmount">Amount</label>
-                        <input type="text" class="form-control" id="expenseAmount" formControlName="expenseAmount" required>
+                        <input type="number" class="form-control" id="expenseAmount" formControlName="expenseAmount" required>
                         <div *ngIf="formErrors.expenseAmount" class="alert alert-danger">
                             {{ formErrors.expenseAmount }}
                         </div>
@@ -123,18 +123,22 @@
                 </form>
             </div>
         </div>
+        <div class="col-md-6">
+
+
+        </div>
         <div class="col-md-6 overlay">
-                <div style="display: block">
-                    <canvas baseChart
-                            [datasets]="datasets"
-                            [labels]="labels"
-                            [options]="options"
-                            [legend]="doughnutChartLegend"
-                            [colors]="chartColors"
-                            [chartType]="doughnutChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
-                </div>
+            <div style="display: block">
+                <canvas baseChart
+                        [datasets]="datasets"
+                        [labels]="labels"
+                        [options]="options"
+                        [legend]="doughnutChartLegend"
+                        [colors]="chartColors"
+                        [chartType]="doughnutChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+            </div>
         </div>
     </div>
 </div>

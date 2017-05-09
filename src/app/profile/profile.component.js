@@ -56,7 +56,7 @@ var ProfileComponent = (function () {
         this.doughnutChartType = 'doughnut';
         this.datasets = [
             {
-                label: "Compounded Interest",
+                label: "Expenses",
                 data: [20, 40, 60]
             }
         ];
