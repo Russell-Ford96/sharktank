@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
 import { ProfileService } from './profile.service'
 import { ActivatedRoute, Params } from '@angular/router';
+
+import { BaseChartDirective } from 'ng2-charts';
 
 import { Profile } from './profile';
 
@@ -10,6 +12,9 @@ import { Profile } from './profile';
     templateUrl: './profile.component.html',
 })
 export class ProfileComponent { 
+    @ViewChild(BaseChartDirective)
+    public chart: BaseChartDirective;
+
     profile: Profile;
     showExpenseForm = false;
     showIncomeForm = false;
@@ -35,7 +40,7 @@ export class ProfileComponent {
               .subscribe((data: { profile: Profile }) => {
                 this.profile = data.profile;
               });
-        console.log(this.profile);
+        this.updateChart();
     }
     confirmDeleteIncome(incomeRow: any, index: number) {
         if(confirm("Are you sure you want to delete this?")) {
@@ -61,14 +66,14 @@ export class ProfileComponent {
                 });
         }
     }
-    showEditIncome(incomeRow: any) {
-        this.selectedIncome = incomeRow;
+    showEditIncome(index: number, incomeRow: any) {
+        this.selectedIncome = index;
         this.incomeForm.setValue({incomeCategory: incomeRow.income_name, incomeAmount: incomeRow.income_amount});
         this.showIncomeForm = true;
         this.editingIncome = true;
     }
-    showEditExpense(expenseRow: any) {
-        this.selectedExpense = expenseRow;
+    showEditExpense(index: number, expenseRow: any) {
+        this.selectedExpense = index;
         this.expenseForm.setValue({expenseCategory: expenseRow.expense_name, expenseAmount: expenseRow.expense_amount});
         this.showExpenseForm = true;
         this.editingExpense = true;
@@ -114,8 +119,8 @@ export class ProfileComponent {
         expenseData.token = localStorage.getItem('token');
         expenseData.expenseAmount = Number(expenseData.expenseAmount);
         if(this.editingExpense) {
-            expenseData.oldAmount = this.selectedExpense.expense_amount;
-            expenseData.oldName = this.selectedExpense.expense_name;
+            expenseData.oldAmount = this.profile.expenses[this.selectedExpense].expense_amount;
+            expenseData.oldName = this.profile.expenses[this.selectedExpense].expense_name;
             this.editExpense(expenseData);
         }
         else
@@ -126,8 +131,9 @@ export class ProfileComponent {
         incomeData.token = localStorage.getItem('token');
         incomeData.incomeAmount = Number(incomeData.incomeAmount);
         if(this.editingIncome) {
-            incomeData.oldAmount = this.selectedIncome.income_amount;
-            incomeData.oldName = this.selectedIncome.income_name;
+            incomeData.oldAmount = this.profile.income[this.selectedIncome].income_amount;
+            incomeData.oldName = this.profile.income[this.selectedIncome].income_name;
+            console.log(incomeData);
             this.editIncome(incomeData);
         }
         else
@@ -162,8 +168,8 @@ export class ProfileComponent {
         this.profileService.editIncome(incomeData)
             .then(res => { 
                 if(res == 'success') {
-                    this.selectedIncome.income_name = incomeData.incomeCategory;
-                    this.selectedIncome.income_amount = incomeData.incomeAmount;
+                    this.profile.income[this.selectedIncome].income_name = incomeData.incomeCategory;
+                    this.profile.income[this.selectedIncome].income_amount = incomeData.incomeAmount;
                     this.showIncomeForm = false;
                 } else {
                     alert("An error has occured.");
@@ -176,6 +182,7 @@ export class ProfileComponent {
                 if(res == 'success') {
                     this.profile.expenses.push({ 'expense_name': expenseData.expenseCategory, 'expense_amount': expenseData.expenseAmount });
                     this.showExpenseForm = false;
+                    this.updateChart();
                 } else {
                     alert("An error has occured.");
                 }
@@ -186,9 +193,10 @@ export class ProfileComponent {
         this.profileService.editExpense(expenseData)
             .then(res => { 
                 if(res == 'success') {
-                    this.selectedExpense.expense_name = expenseData.expenseCategory;
-                    this.selectedExpense.expense_amount = expenseData.expenseAmount;
+                    this.profile.expenses[this.selectedExpense].expense_name = expenseData.expenseCategory;
+                    this.profile.expenses[this.selectedExpense].expense_amount = expenseData.expenseAmount;
                     this.showExpenseForm = false;
+                    this.updateChart();
                 } else {
                     alert("An error has occured.");
                 }
@@ -357,5 +365,19 @@ export class ProfileComponent {
             }
         }
       };
+
+    updateChart() {
+        var expenseValues = [];
+        var labels = [];
+        for(var i in this.profile.expenses) {
+            expenseValues.push(this.profile.expenses[i].expense_amount);
+            labels.push(this.profile.expenses[i].expense_name);
+        }
+        this.datasets[0]['data'] = expenseValues;
+        this.labels = labels;
+        setTimeout(() => {
+            (<any>this.chart).refresh();
+        }, 10);
+    }
 
 }

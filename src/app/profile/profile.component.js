@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var profile_service_1 = require("./profile.service");
 var router_1 = require("@angular/router");
+var ng2_charts_1 = require("ng2-charts");
 var ProfileComponent = (function () {
     function ProfileComponent(fb, profileService, route) {
         this.fb = fb;
@@ -56,7 +57,7 @@ var ProfileComponent = (function () {
         this.doughnutChartType = 'doughnut';
         this.datasets = [
             {
-                label: "Compounded Interest",
+                label: "Expenses",
                 data: [20, 40, 60]
             }
         ];
@@ -97,7 +98,7 @@ var ProfileComponent = (function () {
             .subscribe(function (data) {
             _this.profile = data.profile;
         });
-        console.log(this.profile);
+        this.updateChart();
     };
     ProfileComponent.prototype.confirmDeleteIncome = function (incomeRow, index) {
         var _this = this;
@@ -125,14 +126,14 @@ var ProfileComponent = (function () {
             });
         }
     };
-    ProfileComponent.prototype.showEditIncome = function (incomeRow) {
-        this.selectedIncome = incomeRow;
+    ProfileComponent.prototype.showEditIncome = function (index, incomeRow) {
+        this.selectedIncome = index;
         this.incomeForm.setValue({ incomeCategory: incomeRow.income_name, incomeAmount: incomeRow.income_amount });
         this.showIncomeForm = true;
         this.editingIncome = true;
     };
-    ProfileComponent.prototype.showEditExpense = function (expenseRow) {
-        this.selectedExpense = expenseRow;
+    ProfileComponent.prototype.showEditExpense = function (index, expenseRow) {
+        this.selectedExpense = index;
         this.expenseForm.setValue({ expenseCategory: expenseRow.expense_name, expenseAmount: expenseRow.expense_amount });
         this.showExpenseForm = true;
         this.editingExpense = true;
@@ -176,8 +177,8 @@ var ProfileComponent = (function () {
         expenseData.token = localStorage.getItem('token');
         expenseData.expenseAmount = Number(expenseData.expenseAmount);
         if (this.editingExpense) {
-            expenseData.oldAmount = this.selectedExpense.expense_amount;
-            expenseData.oldName = this.selectedExpense.expense_name;
+            expenseData.oldAmount = this.profile.expenses[this.selectedExpense].expense_amount;
+            expenseData.oldName = this.profile.expenses[this.selectedExpense].expense_name;
             this.editExpense(expenseData);
         }
         else
@@ -188,8 +189,9 @@ var ProfileComponent = (function () {
         incomeData.token = localStorage.getItem('token');
         incomeData.incomeAmount = Number(incomeData.incomeAmount);
         if (this.editingIncome) {
-            incomeData.oldAmount = this.selectedIncome.income_amount;
-            incomeData.oldName = this.selectedIncome.income_name;
+            incomeData.oldAmount = this.profile.income[this.selectedIncome].income_amount;
+            incomeData.oldName = this.profile.income[this.selectedIncome].income_name;
+            console.log(incomeData);
             this.editIncome(incomeData);
         }
         else
@@ -228,8 +230,8 @@ var ProfileComponent = (function () {
         this.profileService.editIncome(incomeData)
             .then(function (res) {
             if (res == 'success') {
-                _this.selectedIncome.income_name = incomeData.incomeCategory;
-                _this.selectedIncome.income_amount = incomeData.incomeAmount;
+                _this.profile.income[_this.selectedIncome].income_name = incomeData.incomeCategory;
+                _this.profile.income[_this.selectedIncome].income_amount = incomeData.incomeAmount;
                 _this.showIncomeForm = false;
             }
             else {
@@ -244,6 +246,7 @@ var ProfileComponent = (function () {
             if (res == 'success') {
                 _this.profile.expenses.push({ 'expense_name': expenseData.expenseCategory, 'expense_amount': expenseData.expenseAmount });
                 _this.showExpenseForm = false;
+                _this.updateChart();
             }
             else {
                 alert("An error has occured.");
@@ -256,9 +259,10 @@ var ProfileComponent = (function () {
         this.profileService.editExpense(expenseData)
             .then(function (res) {
             if (res == 'success') {
-                _this.selectedExpense.expense_name = expenseData.expenseCategory;
-                _this.selectedExpense.expense_amount = expenseData.expenseAmount;
+                _this.profile.expenses[_this.selectedExpense].expense_name = expenseData.expenseCategory;
+                _this.profile.expenses[_this.selectedExpense].expense_amount = expenseData.expenseAmount;
                 _this.showExpenseForm = false;
+                _this.updateChart();
             }
             else {
                 alert("An error has occured.");
@@ -358,8 +362,26 @@ var ProfileComponent = (function () {
             }
         }
     };
+    ProfileComponent.prototype.updateChart = function () {
+        var _this = this;
+        var expenseValues = [];
+        var labels = [];
+        for (var i in this.profile.expenses) {
+            expenseValues.push(this.profile.expenses[i].expense_amount);
+            labels.push(this.profile.expenses[i].expense_name);
+        }
+        this.datasets[0]['data'] = expenseValues;
+        this.labels = labels;
+        setTimeout(function () {
+            _this.chart.refresh();
+        }, 10);
+    };
     return ProfileComponent;
 }());
+__decorate([
+    core_1.ViewChild(ng2_charts_1.BaseChartDirective),
+    __metadata("design:type", ng2_charts_1.BaseChartDirective)
+], ProfileComponent.prototype, "chart", void 0);
 ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',

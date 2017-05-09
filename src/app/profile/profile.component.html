@@ -56,7 +56,7 @@
                         <tr *ngFor="let incomeRow of profile.income; let i = index;">
                             <td>{{ incomeRow.income_name }}</td>
                             <td>{{ incomeRow.income_amount }}</td>
-                            <td> <button type="button" class="btn btn-warning" (click)="showEditIncome(incomeRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteIncome(incomeRow, i)">X</button></td>
+                            <td> <button type="button" class="btn btn-warning" (click)="showEditIncome(i, incomeRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteIncome(incomeRow, i)">X</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,7 +95,7 @@
                         <tr *ngFor="let expenseRow of profile.expenses; let i = index;">
                             <td>{{ expenseRow.expense_name }}</td>
                             <td>{{ expenseRow.expense_amount }}</td>
-                            <td> <button type="button" class="btn btn-warning" (click)="showEditExpense(expenseRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteExpense(expenseRow, i)">X</button></td>
+                            <td> <button type="button" class="btn btn-warning" (click)="showEditExpense(i, expenseRow)">Edit</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteExpense(expenseRow, i)">X</button></td>
                         </tr>
                     </tbody>
                 </table>

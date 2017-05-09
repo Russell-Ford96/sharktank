@@ -99,10 +99,6 @@ router.put('/income', (req, res) => {
     const queryString = "UPDATE User_Income SET income_name=?, income_amount=? WHERE user_id=? AND income_name=? AND income_amount=?";
     var decoded = jwt.verify(req.body.token, 'secret');
     pool.getConnection(function(err, connection) {
-        var income_name = pool.escape(req.body.incomeCategory);
-        var income_amount = pool.escape(req.body.incomeAmount);
-        var old_income_name = pool.escape(req.body.oldName);
-        var old_expense_amount = pool.escape(req.body.oldAmount);
         connection.query("SELECT * FROM Users WHERE user_id=? AND password=?", [decoded.user_id, decoded.password], function(error, results, fields) {
             if(results.length == 0) {
                 res.send('invalid token');
@@ -110,7 +106,10 @@ router.put('/income', (req, res) => {
 
             if(error) throw error;
         });
-        //select users stored incomes from db
+        var income_name = pool.escape(req.body.incomeCategory);
+        var income_amount = pool.escape(req.body.incomeAmount);
+        var old_income_name = pool.escape(req.body.oldName);
+        var old_income_amount = pool.escape(req.body.oldAmount);
         connection.query(queryString, [income_name, income_amount, decoded.user_id, old_income_name, old_income_amount], function(error, results, fields) {
             if(error) throw error;
             res.send(JSON.stringify('success'));
