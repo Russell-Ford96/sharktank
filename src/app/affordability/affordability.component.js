@@ -34,6 +34,8 @@ var AffordabilityComponent = (function () {
         for (var expense in this.profile.expenses) {
             this.monthlyExpenses += this.profile.expenses[expense].expense_amount;
         }
+        this.savings = this.profile.savings;
+        console.log(this.profile.savings);
     };
     AffordabilityComponent.prototype.canAfford = function (event) {
         event.preventDefault();

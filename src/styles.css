@@ -1,10 +1,10 @@
 h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 250%;
 }
 body{
-    
+
     background-color: #B7D44C;
 }
 .logo{
@@ -20,7 +20,7 @@ html{
     background: url("/cir_animacion_1.jpg");
     background-position: 60% 50%;
     background-repeat: no-repeat;
-    
+
 }
 .header {
     color: orangered;
@@ -35,16 +35,20 @@ html{
     background-color: rgba(0,0,0,0.6);
     color:white;
 }
+.overlay2{
+    padding-bottom: 10px;
+    border-radius: 6px;
+}
 .centerWhite{
     text-align: center;
     color:white;
 }
 .footer-div{
-        text-align:center;
-        background:black;  
-        overflow:hidden;
-        padding-top:10px;
-        
+    text-align:center;
+    background:black;  
+    overflow:hidden;
+    padding-top:10px;
+
 }
 .content{
     min-height:calc(100vh);
@@ -61,7 +65,7 @@ html{
         margin-bottom:0;
     }
     .footer-div{
-        
-        
+
+
     }
 }
