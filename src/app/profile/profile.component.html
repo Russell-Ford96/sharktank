@@ -127,7 +127,7 @@
 
 
         </div>
-        <div class="col-md-6 overlay">
+        <div class="col-md-6 overlay" *ngIf="displayChart">
             <div style="display: block">
                 <canvas baseChart
                         [datasets]="datasets"

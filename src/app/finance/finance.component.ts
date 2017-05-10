@@ -13,7 +13,7 @@ import { BaseChartDirective } from 'ng2-charts';
 export class FinanceComponent  { 
     @ViewChild(BaseChartDirective)
     public chart: BaseChartDirective;
-    displayChart = false;
+    displayChart: boolean = false;
 
     profile: Profile;
     income: number = 0;

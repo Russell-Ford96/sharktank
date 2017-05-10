@@ -18,6 +18,7 @@ var ProfileComponent = (function () {
         this.fb = fb;
         this.profileService = profileService;
         this.route = route;
+        this.displayChart = false;
         this.showExpenseForm = false;
         this.showIncomeForm = false;
         this.showProfileForm = false;
@@ -106,8 +107,10 @@ var ProfileComponent = (function () {
             incomeRow.token = localStorage.getItem('token');
             this.profileService.deleteIncome(incomeRow)
                 .then(function (res) {
-                if (res == 'success')
+                if (res == 'success') {
                     _this.profile.income.splice(index, 1);
+                    _this.updateChart();
+                }
                 else
                     alert("An error has occured");
             });
@@ -372,6 +375,10 @@ var ProfileComponent = (function () {
         }
         this.datasets[0]['data'] = expenseValues;
         this.labels = labels;
+        if (this.profile.expenses.length > 0)
+            this.displayChart = true;
+        else
+            this.displayChart = false;
         setTimeout(function () {
             _this.chart.refresh();
         }, 10);

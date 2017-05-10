@@ -14,6 +14,7 @@ import { Profile } from './profile';
 export class ProfileComponent { 
     @ViewChild(BaseChartDirective)
     public chart: BaseChartDirective;
+    displayChart: boolean = false;
 
     profile: Profile;
     showExpenseForm = false;
@@ -47,8 +48,10 @@ export class ProfileComponent {
             incomeRow.token = localStorage.getItem('token');
             this.profileService.deleteIncome(incomeRow)
                 .then(res => {
-                    if(res == 'success')
+                    if(res == 'success') {
                         this.profile.income.splice(index, 1);
+                        this.updateChart();
+                    }
                     else
                         alert("An error has occured");
                 });
@@ -375,6 +378,10 @@ export class ProfileComponent {
         }
         this.datasets[0]['data'] = expenseValues;
         this.labels = labels;
+        if(this.profile.expenses.length > 0)
+            this.displayChart = true;
+        else
+            this.displayChart = false;
         setTimeout(() => {
             (<any>this.chart).refresh();
         }, 10);
