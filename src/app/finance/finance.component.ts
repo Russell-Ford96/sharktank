@@ -18,10 +18,10 @@ export class FinanceComponent  {
     profile: Profile;
     income: number = 0;
     expenses: number = 0;
-    purchaseAmount: number;
-    downPayment: number;
-    apr: number;
-    termMonths: number;
+    purchaseAmount: number = 0;
+    downPayment: number = 0;
+    apr: number = 0.0;
+    termMonths: number = 0;
     termYears: number;
     displayAffordability: boolean;
     canAfford: string;
@@ -55,9 +55,21 @@ export class FinanceComponent  {
     }
     calculateCosts(event: any) {
         event.preventDefault();
+        var amountOwed;
+        var monthlyPayment;
+        if(this.apr <= 0)
+            this.apr = .001;
         var monthlyRate = this.apr/100/12;
-        var amountOwed = this.purchaseAmount - this.downPayment;
-        var monthlyPayment = amountOwed / ((Math.pow((1+monthlyRate), this.termMonths) - 1) / (monthlyRate*Math.pow(1+monthlyRate, this.termMonths)));
+
+        if(this.downPayment >= 0)
+            amountOwed = this.purchaseAmount - this.downPayment;
+        else
+            amountOwed = this.purchaseAmount;
+        if(this.termMonths <= 0)
+            monthlyPayment = amountOwed;
+        else
+            monthlyPayment = amountOwed / ((Math.pow((1+monthlyRate), this.termMonths) - 1) / (monthlyRate*Math.pow(1+monthlyRate, this.termMonths)));
+        console.log(monthlyPayment);
         this.displayAffordability = true;
         if(monthlyPayment <= this.income - this.expenses)
             this.canAfford = "You can finance this payment";
@@ -92,10 +104,12 @@ export class FinanceComponent  {
         this.datasets[0]['data'] = owedOverTime;
         this.datasets[1]['data'] = principalPaidTotal;
         this.datasets[2]['data'] = interestPaidTotal;
-        this.displayChart=true;
-        setTimeout(() => {
-            (<any>this.chart).refresh();
-        }, 10);
+        if(this.termMonths > 0) {
+            this.displayChart=true;
+            setTimeout(() => {
+                (<any>this.chart).refresh();
+            }, 10);
+        }
     }
     public barChartLegend:boolean = true;
     public barChartType:string = 'bar';

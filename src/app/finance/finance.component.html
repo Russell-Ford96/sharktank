@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="termMonths">Payment term in months</label>  
                         <div class="col-md-4">
-                            <input (keyup)="onKey($event)" id="termMonths" name="termMonths" type="number" placeholder="0" class="form-control input-md" required="">
+                            <input (keyup)="onKey($event)" id="termMonths" name="termMonths" type="number" [(ngModel)]="termMonths" placeholder="0" class="form-control input-md" required="">
 
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="termYears">Payment term in years</label>  
                         <div class="col-md-4">
-                            <input (keyup)="onKey($event)" id="termYears" name="termYears" type="number" placeholder="0" class="form-control input-md" required="">
+                            <input (keyup)="onKey($event)" id="termYears" name="termYears" type="number" [(ngModel)]="termYears" placeholder="0" class="form-control input-md" required="">
 
                         </div>
                     </div>

@@ -19,6 +19,10 @@ var FinanceComponent = (function () {
         this.displayChart = false;
         this.income = 0;
         this.expenses = 0;
+        this.purchaseAmount = 0;
+        this.downPayment = 0;
+        this.apr = 0.0;
+        this.termMonths = 0;
         this.barChartLegend = true;
         this.barChartType = 'bar';
         this.datasets = [
@@ -96,9 +100,20 @@ var FinanceComponent = (function () {
     FinanceComponent.prototype.calculateCosts = function (event) {
         var _this = this;
         event.preventDefault();
+        var amountOwed;
+        var monthlyPayment;
+        if (this.apr <= 0)
+            this.apr = .001;
         var monthlyRate = this.apr / 100 / 12;
-        var amountOwed = this.purchaseAmount - this.downPayment;
-        var monthlyPayment = amountOwed / ((Math.pow((1 + monthlyRate), this.termMonths) - 1) / (monthlyRate * Math.pow(1 + monthlyRate, this.termMonths)));
+        if (this.downPayment >= 0)
+            amountOwed = this.purchaseAmount - this.downPayment;
+        else
+            amountOwed = this.purchaseAmount;
+        if (this.termMonths <= 0)
+            monthlyPayment = amountOwed;
+        else
+            monthlyPayment = amountOwed / ((Math.pow((1 + monthlyRate), this.termMonths) - 1) / (monthlyRate * Math.pow(1 + monthlyRate, this.termMonths)));
+        console.log(monthlyPayment);
         this.displayAffordability = true;
         if (monthlyPayment <= this.income - this.expenses)
             this.canAfford = "You can finance this payment";
@@ -132,10 +147,12 @@ var FinanceComponent = (function () {
         this.datasets[0]['data'] = owedOverTime;
         this.datasets[1]['data'] = principalPaidTotal;
         this.datasets[2]['data'] = interestPaidTotal;
-        this.displayChart = true;
-        setTimeout(function () {
-            _this.chart.refresh();
-        }, 10);
+        if (this.termMonths > 0) {
+            this.displayChart = true;
+            setTimeout(function () {
+                _this.chart.refresh();
+            }, 10);
+        }
     };
     return FinanceComponent;
 }());
