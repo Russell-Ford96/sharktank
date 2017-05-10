@@ -109,7 +109,6 @@ var ProfileComponent = (function () {
                 .then(function (res) {
                 if (res == 'success') {
                     _this.profile.income.splice(index, 1);
-                    _this.updateChart();
                 }
                 else
                     alert("An error has occured");
@@ -122,8 +121,10 @@ var ProfileComponent = (function () {
             expenseRow.token = localStorage.getItem('token');
             this.profileService.deleteExpense(expenseRow)
                 .then(function (res) {
-                if (res == 'success')
+                if (res == 'success') {
                     _this.profile.expenses.splice(index, 1);
+                    _this.updateChart();
+                }
                 else
                     alert("An error has occured");
             });

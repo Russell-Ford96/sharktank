@@ -50,7 +50,6 @@ export class ProfileComponent {
                 .then(res => {
                     if(res == 'success') {
                         this.profile.income.splice(index, 1);
-                        this.updateChart();
                     }
                     else
                         alert("An error has occured");
@@ -62,8 +61,10 @@ export class ProfileComponent {
             expenseRow.token = localStorage.getItem('token');
             this.profileService.deleteExpense(expenseRow)
                 .then(res => {
-                    if(res == 'success')
+                    if(res == 'success') {
                         this.profile.expenses.splice(index, 1);
+                        this.updateChart();
+                    }
                     else
                         alert("An error has occured");
                 });
