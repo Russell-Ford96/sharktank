@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
             alert("Invalid login!");
         } else {
             localStorage.setItem("token", token);
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/']);
             this.authService.hasToken = true;
         }
     }
