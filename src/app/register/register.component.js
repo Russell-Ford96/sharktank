@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
+var equal_validator_directive_1 = require("./equal-validator.directive");
 var auth_service_1 = require("../login/auth.service");
 var RegisterFormComponent = (function () {
     function RegisterFormComponent(fb, authService, router) {
@@ -37,11 +38,14 @@ var RegisterFormComponent = (function () {
             },
             'password': {
                 'required': 'Password is required.',
-                'minlength': 'Minimum characters is 8.'
+                'minlength': 'Minimum characters is 8.',
+                'mismatchedPasswords': 'Passwords must match.',
+                'validateEqual': 'Validate equal'
             },
             'confirmPassword': {
                 'required': 'Password is required.',
-                'minlength': 'Minimum characters is 8.'
+                'minlength': 'Minimum characters is 8.',
+                'mismatchedPasswords': 'Passwords must match.'
             }
         };
     }
@@ -68,17 +72,17 @@ var RegisterFormComponent = (function () {
                     forms_1.Validators.required
                 ]
             ],
-            'password': ['', [
+            'password': ['', forms_1.Validators.compose([
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(8)
-                ]
+                ])
             ],
             'confirmPassword': ['', [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(8)
                 ]
             ]
-        });
+        }, { validator: equal_validator_directive_1.matchingPasswords('password', 'confirmPassword') });
         this.registerForm.valueChanges
             .subscribe(function (data) { return _this.onValueChanged(data); });
         this.onValueChanged(); // (re)set validation messages now
@@ -88,6 +92,7 @@ var RegisterFormComponent = (function () {
             return;
         }
         var form = this.registerForm;
+        console.log(form);
         for (var field in this.formErrors) {
             // clear previous error message (if any)
             this.formErrors[field] = '';
@@ -95,6 +100,8 @@ var RegisterFormComponent = (function () {
             if (control && control.dirty && !control.valid) {
                 var messages = this.validationMessages[field];
                 for (var key in control.errors) {
+                    console.log(control.errors);
+                    console.log(key, messages[key]);
                     this.formErrors[field] += messages[key] + ' ';
                 }
             }
@@ -123,6 +130,17 @@ var RegisterFormComponent = (function () {
         else {
             this.formErrors['email'] += response + ' ';
         }
+    };
+    RegisterFormComponent.prototype.isSamePassword = function (passwordKey, confirmPasswordKey) {
+        return function (group) {
+            var password = group.controls[passwordKey];
+            var confirmPassword = group.controls[confirmPasswordKey];
+            if (password.value !== confirmPassword.value) {
+                return {
+                    notSamePassword: true
+                };
+            }
+        };
     };
     return RegisterFormComponent;
 }());

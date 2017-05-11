@@ -2,6 +2,7 @@ import { Component, OnInit }                    from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
 import { Router }                               from '@angular/router';
 
+import { matchingPasswords } from './equal-validator.directive';
 import { AuthService } from '../login/auth.service';
 
 
@@ -41,17 +42,18 @@ export class RegisterFormComponent implements OnInit {
                 Validators.required
                 ]
             ],
-            'password': ['', [
+            'password': ['', Validators.compose([
                 Validators.required,
                 Validators.minLength(8)
-                ]
+                ])
             ],
             'confirmPassword': ['', [
                 Validators.required,
                 Validators.minLength(8)
                 ]
             ]
-        });
+        }, {validator: matchingPasswords('password','confirmPassword')});
+
         this.registerForm.valueChanges
             .subscribe(data => this.onValueChanged(data));
         this.onValueChanged(); // (re)set validation messages now
@@ -116,7 +118,8 @@ export class RegisterFormComponent implements OnInit {
         },
         'confirmPassword': {
             'required': 'Password is required.',
-            'minlength': 'Minimum characters is 8.'
+            'minlength': 'Minimum characters is 8.',
+            'mismatchedPasswords': 'Passwords must match.'
         }
     };
 }
