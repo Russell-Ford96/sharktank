@@ -68,6 +68,7 @@ export class RegisterFormComponent implements OnInit {
             if (control && control.dirty && !control.valid) {
                 const messages = this.validationMessages[field];
                 for (const key in control.errors) {
+                    console.log(key, control.errors);
                     this.formErrors[field] += messages[key] + ' ';
                 }
             }
@@ -90,7 +91,7 @@ export class RegisterFormComponent implements OnInit {
     }
     displayServerMessage(response: string): void {
         if(response == "success") {
-            this.router.navigate(['/success']);
+            this.router.navigate(['/login']);
         } else {
             this.formErrors['email'] += response + ' ';
         }

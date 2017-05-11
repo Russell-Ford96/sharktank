@@ -8,9 +8,7 @@ import { InterestComponent } from './interest/interest.component';
 import { FinanceComponent } from './finance/finance.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
-import { SuccessComponent } from './register/success.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LogoutComponent } from './profile/logout.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
 import { InvestingComponent } from './investing/investing.component';
 
@@ -24,9 +22,7 @@ const routes: Routes = [
     { path: 'finance', component: FinanceComponent, resolve: { profile: ProfileDetailResolve } },
     { path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
-    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], resolve: { profile: ProfileDetailResolve } },
-    { path: 'success', component: SuccessComponent },
-    { path: 'logout', component: LogoutComponent }
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], resolve: { profile: ProfileDetailResolve } }
 ];
 
 @NgModule({

@@ -18,9 +18,7 @@ import { AffordabilityComponent } from './affordability/affordability.component'
 import { InterestComponent } from './interest/interest.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
-import { SuccessComponent } from './register/success.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LogoutComponent } from './profile/logout.component';
 import { AuthGuard } from './auth.guard';
 import { AddIncomeComponent } from './profile/add-income.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
@@ -51,8 +49,6 @@ import { ProfileService } from './profile/profile.service';
         LoginFormComponent,
         RegisterFormComponent,
         ProfileComponent,
-        LogoutComponent,
-        SuccessComponent,
         AddIncomeComponent,
         InvestingComponent,
         FinanceComponent

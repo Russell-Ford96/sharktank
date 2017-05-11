@@ -5,13 +5,11 @@ export function matchingPasswords(passwordKey: string, confirmPasswordKey: strin
   return (group: FormGroup) => {
     let password = group.controls[passwordKey];
     let confirmPassword = group.controls[confirmPasswordKey];
-      console.log(password.value);
-      console.log(group);
     
     if (password.value !== confirmPassword.value) {
         return confirmPassword.setErrors({mismatchedPasswords: true});
     } else {
-        return confirmPassword.setErrors({});
+        return confirmPassword.setErrors(null);
     }
   }
 }

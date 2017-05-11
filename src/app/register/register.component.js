@@ -38,9 +38,7 @@ var RegisterFormComponent = (function () {
             },
             'password': {
                 'required': 'Password is required.',
-                'minlength': 'Minimum characters is 8.',
-                'mismatchedPasswords': 'Passwords must match.',
-                'validateEqual': 'Validate equal'
+                'minlength': 'Minimum characters is 8.'
             },
             'confirmPassword': {
                 'required': 'Password is required.',
@@ -92,7 +90,6 @@ var RegisterFormComponent = (function () {
             return;
         }
         var form = this.registerForm;
-        console.log(form);
         for (var field in this.formErrors) {
             // clear previous error message (if any)
             this.formErrors[field] = '';
@@ -100,8 +97,7 @@ var RegisterFormComponent = (function () {
             if (control && control.dirty && !control.valid) {
                 var messages = this.validationMessages[field];
                 for (var key in control.errors) {
-                    console.log(control.errors);
-                    console.log(key, messages[key]);
+                    console.log(key, control.errors);
                     this.formErrors[field] += messages[key] + ' ';
                 }
             }
@@ -125,22 +121,11 @@ var RegisterFormComponent = (function () {
     };
     RegisterFormComponent.prototype.displayServerMessage = function (response) {
         if (response == "success") {
-            this.router.navigate(['/success']);
+            this.router.navigate(['/login']);
         }
         else {
             this.formErrors['email'] += response + ' ';
         }
-    };
-    RegisterFormComponent.prototype.isSamePassword = function (passwordKey, confirmPasswordKey) {
-        return function (group) {
-            var password = group.controls[passwordKey];
-            var confirmPassword = group.controls[confirmPasswordKey];
-            if (password.value !== confirmPassword.value) {
-                return {
-                    notSamePassword: true
-                };
-            }
-        };
     };
     return RegisterFormComponent;
 }());
