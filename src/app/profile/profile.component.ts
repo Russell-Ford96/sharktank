@@ -163,6 +163,7 @@ export class ProfileComponent {
                 if(res == 'success') {
                     this.profile.income.push({ 'income_name': incomeData.incomeCategory, 'income_amount': incomeData.incomeAmount });
                     this.showIncomeForm = false;
+                    this.updateChart();
                 } else {
                     alert("An error has occured.");
                 }
@@ -175,6 +176,7 @@ export class ProfileComponent {
                     this.profile.income[this.selectedIncome].income_name = incomeData.incomeCategory;
                     this.profile.income[this.selectedIncome].income_amount = incomeData.incomeAmount;
                     this.showIncomeForm = false;
+                    this.updateChart();
                 } else {
                     alert("An error has occured.");
                 }
@@ -371,11 +373,27 @@ export class ProfileComponent {
       };
 
     updateChart() {
+        var totalIncome = 0;
+        var totalExpenses = 0;
+        var expensePercentages = [];
         var expenseValues = [];
         var labels = [];
-        for(var i in this.profile.expenses) {
-            expenseValues.push(this.profile.expenses[i].expense_amount);
-            labels.push(this.profile.expenses[i].expense_name);
+        for(var i in this.profile.income) {
+            totalIncome += this.profile.income[i].income_amount;
+        }
+        if(totalIncome > 0) {
+            for(var i in this.profile.expenses) {
+                totalExpenses += this.profile.expenses[i].expense_amount;
+                expenseValues.push(this.profile.expenses[i].expense_amount / totalIncome);
+                labels.push(this.profile.expenses[i].expense_name + ': $' + this.profile.expenses[i].expense_amount);
+            }
+            expenseValues.push((totalIncome - totalExpenses) / totalIncome);
+            labels.push('Unspent/Savings: $' + (totalIncome - totalExpenses))
+        } else {
+            for(var i in this.profile.expenses) {
+                expenseValues.push(this.profile.expenses[i].expense_amount);
+                labels.push(this.profile.expenses[i].expense_name);
+            }
         }
         this.datasets[0]['data'] = expenseValues;
         this.labels = labels;

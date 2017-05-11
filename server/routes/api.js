@@ -27,8 +27,10 @@ router.post('/register', (req, res) => {
     email = pool.escape(email);
     var password = pool.escape(req.body.password);
     var confirmPass = pool.escape(req.body.confirmPassword);
-    if(password != confirmPass)
+    if(password != confirmPass) {
         res.status(400).send(JSON.stringify("Passwords do not match"));
+        return;
+    }
     var fname = pool.escape(req.body.firstName);
     var lname = pool.escape(req.body.lastName);
     //check if passwords are the same
