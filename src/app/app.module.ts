@@ -24,6 +24,7 @@ import { AddIncomeComponent } from './profile/add-income.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
 import { InvestingComponent } from './investing/investing.component'
 import { FinanceComponent } from './finance/finance.component';
+import { LogoutComponent } from './logout/logout.component';
 
 import { AuthService } from './login/auth.service';
 import { ProfileService } from './profile/profile.service';
@@ -51,7 +52,8 @@ import { ProfileService } from './profile/profile.service';
         ProfileComponent,
         AddIncomeComponent,
         InvestingComponent,
-        FinanceComponent
+        FinanceComponent,
+        LogoutComponent
     ],
     providers: [
         AuthService,

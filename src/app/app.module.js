@@ -27,6 +27,7 @@ var add_income_component_1 = require("./profile/add-income.component");
 var profile_resolve_1 = require("./profile/profile.resolve");
 var investing_component_1 = require("./investing/investing.component");
 var finance_component_1 = require("./finance/finance.component");
+var logout_component_1 = require("./logout/logout.component");
 var auth_service_1 = require("./login/auth.service");
 var profile_service_1 = require("./profile/profile.service");
 var AppModule = (function () {
@@ -58,7 +59,8 @@ AppModule = __decorate([
             profile_component_1.ProfileComponent,
             add_income_component_1.AddIncomeComponent,
             investing_component_1.InvestingComponent,
-            finance_component_1.FinanceComponent
+            finance_component_1.FinanceComponent,
+            logout_component_1.LogoutComponent
         ],
         providers: [
             auth_service_1.AuthService,
