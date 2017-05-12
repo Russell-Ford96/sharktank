@@ -21,9 +21,7 @@ var affordability_component_1 = require("./affordability/affordability.component
 var interest_component_1 = require("./interest/interest.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
-var success_component_1 = require("./register/success.component");
 var profile_component_1 = require("./profile/profile.component");
-var logout_component_1 = require("./profile/logout.component");
 var auth_guard_1 = require("./auth.guard");
 var add_income_component_1 = require("./profile/add-income.component");
 var profile_resolve_1 = require("./profile/profile.resolve");
@@ -58,8 +56,6 @@ AppModule = __decorate([
             login_component_1.LoginFormComponent,
             register_component_1.RegisterFormComponent,
             profile_component_1.ProfileComponent,
-            logout_component_1.LogoutComponent,
-            success_component_1.SuccessComponent,
             add_income_component_1.AddIncomeComponent,
             investing_component_1.InvestingComponent,
             finance_component_1.FinanceComponent

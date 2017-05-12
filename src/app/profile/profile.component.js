@@ -195,7 +195,6 @@ var ProfileComponent = (function () {
         if (this.editingIncome) {
             incomeData.oldAmount = this.profile.income[this.selectedIncome].income_amount;
             incomeData.oldName = this.profile.income[this.selectedIncome].income_name;
-            console.log(incomeData);
             this.editIncome(incomeData);
         }
         else

@@ -51,7 +51,7 @@ var LoginFormComponent = (function () {
         }
         else {
             localStorage.setItem("token", token);
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/']);
             this.authService.hasToken = true;
         }
     };
