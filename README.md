@@ -7,7 +7,7 @@ Group training project for Synechron
 <li>Clone this repo and cd into it</li>
 <li>Put your db password in server/database/env.js</li>
 mockup for this file is like so: <br>
-<code style="display: block">
+<code>
 const express = require('express');
 var DB_PASS = 'YOUR PASSWORD HERE';
 
