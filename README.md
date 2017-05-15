@@ -13,8 +13,6 @@ env.js mockup
 <br>
 <code>
 const express = require('express');
-
 var DB_PASS = 'YOUR PASSWORD HERE';
-
 module.exports = DB_PASS;
 </code>
