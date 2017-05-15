@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template:
     `<div class="row" class="footer-div">
         <p style="color:white;">
-        Can I Afford It?<br>
+        People's Bank<br>
         2017
         </p>
     </div>`,

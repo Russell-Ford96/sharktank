@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
 import { ProfileService } from './profile.service'
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -33,7 +33,8 @@ export class ProfileComponent {
     constructor(
         private fb: FormBuilder,
         private profileService: ProfileService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
     ngOnInit(): void {
         this.buildForms();
@@ -43,6 +44,12 @@ export class ProfileComponent {
               });
         this.updateChart();
     }
+
+    redirect() {
+        this.router.navigate(['/redeem']);
+    }
+
+
     confirmDeleteIncome(incomeRow: any, index: number) {
         if(confirm("Are you sure you want to delete this?")) {
             incomeRow.token = localStorage.getItem('token');

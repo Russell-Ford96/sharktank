@@ -18,16 +18,13 @@ var navbar_component_1 = require("./navbar/navbar.component");
 var footer_component_1 = require("./footer/footer.component");
 var home_component_1 = require("./home/home.component");
 var affordability_component_1 = require("./affordability/affordability.component");
-var interest_component_1 = require("./interest/interest.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var profile_component_1 = require("./profile/profile.component");
 var auth_guard_1 = require("./auth.guard");
-var add_income_component_1 = require("./profile/add-income.component");
 var profile_resolve_1 = require("./profile/profile.resolve");
-var investing_component_1 = require("./investing/investing.component");
-var finance_component_1 = require("./finance/finance.component");
 var logout_component_1 = require("./logout/logout.component");
+var redeem_component_1 = require("./redeem/redeem.component");
 var auth_service_1 = require("./login/auth.service");
 var profile_service_1 = require("./profile/profile.service");
 var AppModule = (function () {
@@ -53,14 +50,11 @@ AppModule = __decorate([
             footer_component_1.FooterComponent,
             home_component_1.HomeComponent,
             affordability_component_1.AffordabilityComponent,
-            interest_component_1.InterestComponent,
             login_component_1.LoginFormComponent,
             register_component_1.RegisterFormComponent,
             profile_component_1.ProfileComponent,
-            add_income_component_1.AddIncomeComponent,
-            investing_component_1.InvestingComponent,
-            finance_component_1.FinanceComponent,
-            logout_component_1.LogoutComponent
+            logout_component_1.LogoutComponent,
+            redeem_component_1.RedeemComponent
         ],
         providers: [
             auth_service_1.AuthService,

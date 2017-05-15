@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <ul class="nav nav-pills">
+        <li class="active" (click)="viewShopping()"><a>Shopping</a></li>
+        <li (click)="viewGiftCards()"><a>Gift Cards</a></li>
+        <li (click)="viewTravel()"><a>Travel</a></li>
+    </ul>
+    <ul class="nav pull-right">
+        <li>Points: {{points}}</li>
+    </ul>
+    <div class="row list-group" *ngIf="shopping">
+        <div class="col-xs-4 col-lg-4 item" *ngFor="let item of shoppingItems">
+            <div class="thumbnail">
+                <br>
+                <img class="group list-group-image" src="app/redeem/products-list/shopping/{{ item.image }}">
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">{{ item.name }}</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6"><p class="lead">{{ item.points }}</p></div>
+                        <button value="Buy" class="btn btn-success" (click)="buyItem(item.points)">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row list-group" *ngIf="giftCards">
+        <div class="col-xs-4 col-lg-4 item" *ngFor="let item of giftCardItems">
+            <div class="thumbnail">
+                <br>
+                <img class="group list-group-image" src="app/redeem/products-list/gift-cards/{{ item.image }}">
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">{{ item.name }}</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6"><p class="lead">{{ item.points }}</p></div>
+                        <button value="Buy" class="btn btn-success" (click)="buyItem(item.points)">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row list-group" *ngIf="travel">
+        <div class="col-xs-4 col-lg-4 item" *ngFor="let item of travelItems">
+            <div class="thumbnail">
+                <br>
+                <img class="group list-group-image" src="app/redeem/products-list/travel/{{ item.image }}">
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">{{ item.name }}</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6"><p class="lead">{{ item.points }}</p></div>
+                        <button value="Buy" class="btn btn-success" (click)="buyItem(item.points)">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row" *ngIf="giftCards" *ngFor="let item of giftCards">
+        Gift Cards
+    </div>
+    <div class="row" *ngIf="travel" *ngFor="let item of travelItems">
+        Travel
+    </div>
+    -->
+</div>

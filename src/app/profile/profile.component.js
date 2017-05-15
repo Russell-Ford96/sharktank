@@ -14,10 +14,11 @@ var profile_service_1 = require("./profile.service");
 var router_1 = require("@angular/router");
 var ng2_charts_1 = require("ng2-charts");
 var ProfileComponent = (function () {
-    function ProfileComponent(fb, profileService, route) {
+    function ProfileComponent(fb, profileService, route, router) {
         this.fb = fb;
         this.profileService = profileService;
         this.route = route;
+        this.router = router;
         this.displayChart = false;
         this.showExpenseForm = false;
         this.showIncomeForm = false;
@@ -100,6 +101,9 @@ var ProfileComponent = (function () {
             _this.profile = data.profile;
         });
         this.updateChart();
+    };
+    ProfileComponent.prototype.redirect = function () {
+        this.router.navigate(['/redeem']);
     };
     ProfileComponent.prototype.confirmDeleteIncome = function (incomeRow, index) {
         var _this = this;
@@ -415,7 +419,8 @@ ProfileComponent = __decorate([
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
         profile_service_1.ProfileService,
-        router_1.ActivatedRoute])
+        router_1.ActivatedRoute,
+        router_1.Router])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 //# sourceMappingURL=profile.component.js.map

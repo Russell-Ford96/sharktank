@@ -10,18 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../login/auth.service");
-var router_1 = require("@angular/router");
 var LogoutComponent = (function () {
-    function LogoutComponent(authService, router) {
+    function LogoutComponent(authService) {
         this.authService = authService;
-        this.router = router;
         this.logout();
     }
     LogoutComponent.prototype.logout = function () {
         this.authService.logout();
-        setTimeout(function () {
-            this.router.navigate(['/login']);
-        }, 1500);
     };
     return LogoutComponent;
 }());
@@ -30,8 +25,7 @@ LogoutComponent = __decorate([
         selector: 'logout',
         template: '<h1>You have been successfully logged out!</h1>'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService,
-        router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], LogoutComponent);
 exports.LogoutComponent = LogoutComponent;
 //# sourceMappingURL=logout.component.js.map

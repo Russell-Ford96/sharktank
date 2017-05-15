@@ -15,16 +15,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AffordabilityComponent } from './affordability/affordability.component';
-import { InterestComponent } from './interest/interest.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
 import { AddIncomeComponent } from './profile/add-income.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
-import { InvestingComponent } from './investing/investing.component'
-import { FinanceComponent } from './finance/finance.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RedeemComponent } from './redeem/redeem.component';
 
 import { AuthService } from './login/auth.service';
 import { ProfileService } from './profile/profile.service';
@@ -46,14 +44,11 @@ import { ProfileService } from './profile/profile.service';
         FooterComponent,
         HomeComponent,
         AffordabilityComponent,
-        InterestComponent,
         LoginFormComponent,
         RegisterFormComponent,
         ProfileComponent,
-        AddIncomeComponent,
-        InvestingComponent,
-        FinanceComponent,
-        LogoutComponent
+        LogoutComponent,
+        RedeemComponent
     ],
     providers: [
         AuthService,

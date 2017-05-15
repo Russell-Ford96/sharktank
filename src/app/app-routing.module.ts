@@ -12,19 +12,18 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
 import { InvestingComponent } from './investing/investing.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RedeemComponent } from './redeem/redeem.component';
 
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'affordability', component: AffordabilityComponent, resolve: { profile: ProfileDetailResolve } },
-    { path: 'interest', component: InterestComponent },
-    { path: 'investing', component: InvestingComponent},
-    { path: 'finance', component: FinanceComponent, resolve: { profile: ProfileDetailResolve } },
     { path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], resolve: { profile: ProfileDetailResolve } },
-    { path: 'logout', component: LogoutComponent }
+    { path: 'logout', component: LogoutComponent },
+    { path: 'redeem', component: RedeemComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
