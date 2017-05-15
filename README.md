@@ -8,8 +8,8 @@ Group training project for Synechron
 <li>Put your db password in server/database/env.js</li>
 mockup for this file is like so: <br>
 <code>
-const express = require('express');<br>
-var DB_PASS = 'YOUR PASSWORD HERE';<br>
+const express = require('express');\n
+var DB_PASS = 'YOUR PASSWORD HERE';\n
 
 module.exports = DB_PASS;
 </code>
