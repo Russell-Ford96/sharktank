@@ -14,7 +14,7 @@ import { AppComponent }  from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { AffordabilityComponent } from './affordability/affordability.component';
+import { BankingComponent } from './banking/banking.component';
 import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -43,12 +43,12 @@ import { ProfileService } from './profile/profile.service';
         NavbarComponent,
         FooterComponent,
         HomeComponent,
-        AffordabilityComponent,
         LoginFormComponent,
         RegisterFormComponent,
         ProfileComponent,
         LogoutComponent,
-        RedeemComponent
+        RedeemComponent,
+        BankingComponent
     ],
     providers: [
         AuthService,

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Reward } from './reward'; 
+import { REWARDS } from './rewards-list';
 
 @Component({
   selector: 'redeem',
@@ -10,48 +12,9 @@ export class RedeemComponent {
     travel: boolean = false;
     points: number = 3000;
 
-    shoppingItems = [
-        {   name: 'test1',
-            image: 'laptop.png',
-            points: 1000
-        },
-        {   name: 'test2',
-            image: 'download.jpg',
-            points: 2000
-        },
-        {   name: 'test3',
-            image: '6814952_sa.jpg',
-            points: 3000
-        }
-    ]
-    giftCardItems = [
-        {   name: 'test1',
-            image: 'laptop.png',
-            points: 1000
-        },
-        {   name: 'test2',
-            image: 'download.jpg',
-            points: 2000
-        },
-        {   name: 'test3',
-            image: '6814952_sa.jpg',
-            points: 3000
-        }
-    ]
-    travelItems = [
-        {   name: 'test1',
-            image: 'laptop.png',
-            points: 1000
-        },
-        {   name: 'test2',
-            image: 'download.jpg',
-            points: 2000
-        },
-        {   name: 'test3',
-            image: '6814952_sa.jpg',
-            points: 3000
-        }
-    ]
+    shoppingItems = REWARDS.shopping;
+    giftCardItems = REWARDS.giftCards;
+    travelItems = REWARDS.travel;
 
 
     viewShopping() {

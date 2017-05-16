@@ -17,7 +17,7 @@ var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
 var footer_component_1 = require("./footer/footer.component");
 var home_component_1 = require("./home/home.component");
-var affordability_component_1 = require("./affordability/affordability.component");
+var banking_component_1 = require("./banking/banking.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var profile_component_1 = require("./profile/profile.component");
@@ -49,12 +49,12 @@ AppModule = __decorate([
             navbar_component_1.NavbarComponent,
             footer_component_1.FooterComponent,
             home_component_1.HomeComponent,
-            affordability_component_1.AffordabilityComponent,
             login_component_1.LoginFormComponent,
             register_component_1.RegisterFormComponent,
             profile_component_1.ProfileComponent,
             logout_component_1.LogoutComponent,
-            redeem_component_1.RedeemComponent
+            redeem_component_1.RedeemComponent,
+            banking_component_1.BankingComponent
         ],
         providers: [
             auth_service_1.AuthService,

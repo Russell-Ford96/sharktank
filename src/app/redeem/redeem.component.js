@@ -6,54 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
+var rewards_list_1 = require("./rewards-list");
 var RedeemComponent = (function () {
     function RedeemComponent() {
         this.shopping = true;
         this.giftCards = false;
         this.travel = false;
         this.points = 3000;
-        this.shoppingItems = [
-            { name: 'test1',
-                image: 'laptop.png',
-                points: 1000
-            },
-            { name: 'test2',
-                image: 'download.jpg',
-                points: 2000
-            },
-            { name: 'test3',
-                image: '6814952_sa.jpg',
-                points: 3000
-            }
-        ];
-        this.giftCardItems = [
-            { name: 'test1',
-                image: 'laptop.png',
-                points: 1000
-            },
-            { name: 'test2',
-                image: 'download.jpg',
-                points: 2000
-            },
-            { name: 'test3',
-                image: '6814952_sa.jpg',
-                points: 3000
-            }
-        ];
-        this.travelItems = [
-            { name: 'test1',
-                image: 'laptop.png',
-                points: 1000
-            },
-            { name: 'test2',
-                image: 'download.jpg',
-                points: 2000
-            },
-            { name: 'test3',
-                image: '6814952_sa.jpg',
-                points: 3000
-            }
-        ];
+        this.shoppingItems = rewards_list_1.REWARDS.shopping;
+        this.giftCardItems = rewards_list_1.REWARDS.giftCards;
+        this.travelItems = rewards_list_1.REWARDS.travel;
     }
     RedeemComponent.prototype.viewShopping = function () {
         this.resetViews();
