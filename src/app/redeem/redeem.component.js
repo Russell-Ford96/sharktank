@@ -9,13 +9,17 @@ var core_1 = require("@angular/core");
 var rewards_list_1 = require("./rewards-list");
 var RedeemComponent = (function () {
     function RedeemComponent() {
+        this.ROW_SIZE = 3;
         this.shopping = true;
         this.giftCards = false;
         this.travel = false;
         this.points = 3000;
         this.shoppingItems = rewards_list_1.REWARDS.shopping;
+        this.shoppingRows = this.convertToRow(rewards_list_1.REWARDS.shopping, this.ROW_SIZE);
         this.giftCardItems = rewards_list_1.REWARDS.giftCards;
+        this.giftCardRows = this.convertToRow(rewards_list_1.REWARDS.giftCards, this.ROW_SIZE);
         this.travelItems = rewards_list_1.REWARDS.travel;
+        this.travelRows = this.convertToRow(rewards_list_1.REWARDS.giftCards, this.ROW_SIZE);
     }
     RedeemComponent.prototype.viewShopping = function () {
         this.resetViews();
@@ -39,6 +43,19 @@ var RedeemComponent = (function () {
             this.points -= points;
         else
             alert("You don't have enough points yet!");
+    };
+    RedeemComponent.prototype.convertToRow = function (items, rowLength) {
+        var arr = [];
+        var triple = [];
+        for (var i = 1; i <= items.length + 1; i++) {
+            triple.push(items[i - 1]);
+            if (i % rowLength === 0 || i === items.length) {
+                arr.push(triple);
+                triple = [];
+            }
+        }
+        console.log(arr.length);
+        return arr;
     };
     return RedeemComponent;
 }());

@@ -21,6 +21,13 @@ const SHOPPING: Reward[] = [
         imageUrl: '6814952_sa.jpg',
         description: 'lorem ipsum',
         points: 3000
+    },
+    {   
+        id: 4,
+        name: 'test4',
+        imageUrl: '6814952_sa.jpg',
+        description: 'lorem ipsum',
+        points: 3000
     }
 ]
 const GIFTCARDS: Reward[] = [

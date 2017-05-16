@@ -19,7 +19,6 @@ import { LoginFormComponent } from './login/login.component';
 import { RegisterFormComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
-import { AddIncomeComponent } from './profile/add-income.component';
 import { ProfileDetailResolve } from './profile/profile.resolve';
 import { LogoutComponent } from './logout/logout.component';
 import { RedeemComponent } from './redeem/redeem.component';

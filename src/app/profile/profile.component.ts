@@ -18,12 +18,10 @@ export class ProfileComponent {
         private router: Router
     ) { }
     ngOnInit(): void {
-        this.buildForms();
         this.route.data
               .subscribe((data: { profile: Profile }) => {
                 this.profile = data.profile;
               });
-        this.updateChart();
     }
 
     redirect() {

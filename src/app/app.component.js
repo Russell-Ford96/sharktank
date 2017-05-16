@@ -14,7 +14,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n<div class=\"container-fluid no-margin\" style=\"padding-right: 0px; padding-left: 0px\">\n    <navbar></navbar>\n</div>\n    <footer></footer>\n"
+        template: "\n<div class=\"container-fluid no-margin\" style=\"padding-right: 0px; padding-left: 0px\">\n    <navbar></navbar>\n</div>\n<footer></footer>\n"
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
